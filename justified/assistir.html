@@ -11,38 +11,67 @@
       font-family: Arial, sans-serif;
       padding: 20px;
     }
+
     h1 {
       text-align: center;
       margin-bottom: 10px;
     }
-    .voltar {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-    }
-    .voltar a {
-      background: #1e1e1e;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 8px;
+
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #000;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
       text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-      border: 1px solid #333;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
     }
-    .voltar a:hover {
-      background: #333;
+
+    .home-btn:hover {
+      background-color: limegreen;
     }
+
+    .home-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      .home-btn {
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+      }
+
+      .home-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
     .player {
       width: 100%;
       max-width: 800px;
       margin: 0 auto 30px auto;
       position: relative;
     }
+
     video {
       width: 100%;
       border-radius: 10px;
     }
+
     .preload-image {
       position: absolute;
       top: 0;
@@ -53,6 +82,7 @@
       border-radius: 10px;
       display: none;
     }
+
     .imdb-info {
       display: flex;
       align-items: flex-start;
@@ -60,23 +90,29 @@
       margin: 40px auto;
       max-width: 800px;
     }
+
     .imdb-info img {
       width: 200px;
       border-radius: 10px;
     }
+
     .imdb-info .details {
       flex: 1;
     }
+
     .imdb-info .details h2 {
       margin-top: 0;
     }
+
     .temporada {
       margin-bottom: 40px;
     }
+
     .episodios {
       display: block;
       margin-top: 20px;
     }
+
     .episodio {
       background: #1e1e1e;
       padding: 10px;
@@ -90,11 +126,13 @@
 </head>
 <body>
 
-  <h1>Justified - Temporadas</h1>
+  <a href="https://multifilmes.vercel.app/" class="home-btn" title="Página Inicial" aria-label="Ir para a página inicial">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+      <path d="M280.37 148.26L96 300.11V464a16 16 0 0016 16l112-.3a16 16 0 0016-15.7V368a16 16 0 0116-16h64a16 16 0 0116 16v96a16 16 0 0016 16l112 .3a16 16 0 0016-16V300L295.67 148.26a12.19 12.19 0 00-15.3 0zM571.6 251.47L488 182.6V44a12 12 0 00-12-12h-56a12 12 0 00-12 12v72.61L318.47 43a48 48 0 00-61 0L4.34 251.47a12 12 0 00-1.6 16.9l25.5 31a12 12 0 0016.9 1.6L64 270.69V464a48 48 0 0048 48h352a48 48 0 0048-48V270.7l18.9 15.3a12 12 0 0016.9-1.6l25.5-31a12 12 0 00-1.7-16.93z"/>
+    </svg>
+  </a>
 
-  <div class="voltar">
-    <a href="index.html">← Voltar à Página Inicial</a>
-  </div>
+  <h1>Justified - Temporadas</h1>
 
   <div class="player" id="playerBox">
     <div class="preload-image" id="preloadImage"></div>
