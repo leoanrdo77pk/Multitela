@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Séries</title>
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    /* O menu lateral que será oculto inicialmente */
+    .menu-lateral {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-y: auto;
+      transition: 0.5s;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
+    /* Link dentro do menu */
+    .menu-lateral a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 15px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    /* Efeito ao passar o mouse */
+    .menu-lateral a:hover {
+      background-color: limegreen;
+    }
+
+    /* Submenu (oculto por padrão) */
+    .submenu {
+      display: none;
+      background-color: #333;
+      padding-left: 20px;
+    }
+
+    /* Mostrar submenu quando estiver ativo */
+    .menu-lateral .active .submenu {
+      display: block;
+    }
+
+    /* Botão de Menu (Hamburguer) */
+    .menu-btn {
+      font-size: 30px;
+      cursor: pointer;
+      background-color: transparent;
+      color: white;
+      border: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    /* Estilo para o conteúdo */
+    .content {
+      transition: margin-left .5s;
+      padding: 20px;
+      text-align: center;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    /* Card de Séries */
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      max-width: 900px;
+      margin: 0 auto;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card a {
+      display: block;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: limegreen;
+    }
+
+    /* Responsividade para telas menores */
+    @media screen and (max-width: 768px) {
+      .menu-btn {
+        font-size: 25px;
+        top: 10px;
+        left: 10px;
+      }
+
+      .menu-lateral a {
+        font-size: 13px;
+      }
+
+      .catalogo {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+
+      .card {
+        margin: 0 10px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .menu-btn {
+        font-size: 20px;
+        top: 5px;
+        left: 5px;
+      }
+
+      .menu-lateral a {
+        font-size: 12px;
+      }
+
+      .catalogo {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Menu Lateral -->
+  <div id="menuLateral" class="menu-lateral">
+    <a href="javascript:void(0)" class="close-btn" onclick="toggleMenu()">&#9776;</a>
+    <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
+    <div id="filmes" class="submenu">
+      <a href="#">Ação</a>
+      <a href="#">Comédia</a>
+      <a href="#">Drama</a>
+      <a href="#">Terror</a>
+      <a href="#">Aventura</a>
+      <a href="#">Romance</a>
+      <a href="#">Fantasia</a>
+      <a href="#">Sci-Fi</a>
+    </div>
+    <a href="#" onclick="toggleSubmenu('series')">Séries</a>
+    <div id="series" class="submenu">
+      <a href="#">Justified</a>
+      <a href="#">Breaking Bad</a>
+      <a href="#">Game of Thrones</a>
+      <a href="#">The Big Bang Theory</a>
+      <a href="#">Stranger Things</a>
+      <a href="#">The Crown</a>
+      <a href="#">Black Mirror</a>
+      <a href="#">Narcos</a>
+    </div>
+  </div>
+
+  <!-- Botão de Menu -->
+  <a href="javascript:void(0)" class="menu-btn" onclick="toggleMenu()">&#9776;</a>
+
+  <!-- Conteúdo -->
+  <div class="content">
+    <h1>Bem-vindo ao Catálogo de Séries</h1>
+
+    <div class="catalogo">
+      <div class="card">
+        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
+        <a href="justified/assistir.html">Assistir Justified</a>
+      </div>
+      <div class="card">
+        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
+        <a href="breakingbad/assistir.html">Assistir Breaking Bad</a>
+      </div>
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
+        <a href="thewalkingdead/assistir.html">Assistir The Walking Dead</a>
+      </div>
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
+        <a href="gameofthrones/assistir.html">Assistir Game of Thrones</a>
+      </div>
+      <div class="card">
+        <img src="https://br.web.img3.acsta.net/pictures/14/01/23/13/30/209537.jpg" alt="The Big Bang Theory">
+        <a href="thebigbangtheory/assistir.html">Assistir The Big Bang Theory</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Função para abrir e fechar o menu ao clicar no ícone
+    function toggleMenu() {
+      const menu = document.getElementById("menuLateral");
+      const content = document.querySelector(".content");
+      const menuBtn = document.querySelector(".menu-btn");
+
+      // Se o menu estiver fechado, abre-o e move o conteúdo
+      if (menu.style.width === "0px" || menu.style.width === "") {
+        menu.style.width = "250px";
+        content.style.marginLeft = "250px";
+        menuBtn.innerHTML = "&#10005;";  // Muda para o ícone de fechar
+      } else {
+        menu.style.width = "0";
+        content.style.marginLeft = "0";
+        menuBtn.innerHTML = "&#9776;";  // Muda de volta para o ícone de menu
+      }
+    }
+
+    // Função para mostrar/esconder submenu
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
+
+      // Adiciona ou remove a classe 'active' ao item de menu
+      const menuItem = document.querySelector(`[onclick="toggleSubmenu('${id}')"]`);
+      menuItem.classList.toggle("active");
+    }
+  </script>
+
+</body>
+</html>
