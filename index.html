@@ -2,7 +2,6 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo de Séries</title>
   <style>
     body {
@@ -16,10 +15,9 @@
 
     h1 {
       text-align: center;
-      margin-top: 80px;
+      margin-top: 60px;
     }
 
-    /* O menu lateral que será oculto inicialmente */
     .menu-lateral {
       height: 100%;
       width: 0;
@@ -33,7 +31,6 @@
       z-index: 999;
     }
 
-    /* Link dentro do menu */
     .menu-lateral a {
       padding: 10px 15px;
       text-decoration: none;
@@ -43,24 +40,20 @@
       transition: 0.3s;
     }
 
-    /* Efeito ao passar o mouse */
     .menu-lateral a:hover {
       background-color: limegreen;
     }
 
-    /* Submenu (oculto por padrão) */
     .submenu {
       display: none;
       background-color: #333;
       padding-left: 20px;
     }
 
-    /* Mostrar submenu quando estiver ativo */
     .menu-lateral .active .submenu {
       display: block;
     }
 
-    /* Botão de Menu (Hamburguer) */
     .menu-btn {
       font-size: 30px;
       cursor: pointer;
@@ -73,7 +66,6 @@
       z-index: 1000;
     }
 
-    /* Estilo para o conteúdo */
     .content {
       transition: margin-left .5s;
       padding: 20px;
@@ -82,7 +74,6 @@
       max-height: 100vh;
     }
 
-    /* Card de Séries */
     .catalogo {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -120,50 +111,29 @@
       background-color: limegreen;
     }
 
-    /* Responsividade para telas menores */
-    @media screen and (max-width: 768px) {
-      .menu-btn {
-        font-size: 25px;
-        top: 10px;
-        left: 10px;
-      }
-
-      .menu-lateral a {
-        font-size: 13px;
-      }
-
-      .catalogo {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
-
-      .card {
-        margin: 0 10px;
-      }
+    input#busca {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      margin: 20px auto;
+      display: block;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
     }
 
-    @media screen and (max-width: 480px) {
-      .menu-btn {
-        font-size: 20px;
-        top: 5px;
-        left: 5px;
-      }
-
-      .menu-lateral a {
-        font-size: 12px;
-      }
-
+    @media (max-width: 600px) {
       .catalogo {
         grid-template-columns: 1fr;
       }
     }
-
   </style>
 </head>
 <body>
 
   <!-- Menu Lateral -->
   <div id="menuLateral" class="menu-lateral">
-    <a href="javascript:void(0)" class="close-btn" onclick="toggleMenu()">&#9776;</a>
+    <a href="javascript:void(0)" onclick="toggleMenu()">&#9776;</a>
     <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
     <div id="filmes" class="submenu">
       <a href="#">Ação</a>
@@ -189,11 +159,13 @@
   </div>
 
   <!-- Botão de Menu -->
-  <a href="javascript:void(0)" class="menu-btn" onclick="toggleMenu()">&#9776;</a>
+  <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
 
   <!-- Conteúdo -->
   <div class="content">
     <h1>Bem-vindo ao Catálogo de Séries</h1>
+
+    <input type="text" id="busca" placeholder="Buscar série..." onkeyup="filtrarCatalogo()">
 
     <div class="catalogo">
       <div class="card">
@@ -220,32 +192,32 @@
   </div>
 
   <script>
-    // Função para abrir e fechar o menu ao clicar no ícone
     function toggleMenu() {
       const menu = document.getElementById("menuLateral");
       const content = document.querySelector(".content");
-      const menuBtn = document.querySelector(".menu-btn");
-
-      // Se o menu estiver fechado, abre-o e move o conteúdo
       if (menu.style.width === "0px" || menu.style.width === "") {
         menu.style.width = "250px";
         content.style.marginLeft = "250px";
-        menuBtn.innerHTML = "&#10005;";  // Muda para o ícone de fechar
       } else {
         menu.style.width = "0";
         content.style.marginLeft = "0";
-        menuBtn.innerHTML = "&#9776;";  // Muda de volta para o ícone de menu
       }
     }
 
-    // Função para mostrar/esconder submenu
     function toggleSubmenu(id) {
       const submenu = document.getElementById(id);
       submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
-
-      // Adiciona ou remove a classe 'active' ao item de menu
       const menuItem = document.querySelector(`[onclick="toggleSubmenu('${id}')"]`);
       menuItem.classList.toggle("active");
+    }
+
+    function filtrarCatalogo() {
+      const input = document.getElementById('busca').value.toLowerCase();
+      const cards = document.querySelectorAll('.catalogo .card');
+      cards.forEach(card => {
+        const texto = card.innerText.toLowerCase();
+        card.style.display = texto.includes(input) ? 'block' : 'none';
+      });
     }
   </script>
 
