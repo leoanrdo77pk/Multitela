@@ -6,7 +6,6 @@
   <style>
     body {
       font-family: Poppins, sans-serif;
-      font-size: 14px;
       margin: 0;
       padding: 0;
       background-color: #121212;
@@ -71,8 +70,19 @@
       transition: margin-left .5s;
       padding: 20px;
       text-align: center;
-      overflow-y: auto;
-      max-height: 100vh;
+    }
+
+    .search-box {
+      margin: 20px auto;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
     }
 
     .catalogo {
@@ -82,12 +92,6 @@
       margin: 0 auto;
       gap: 20px;
       padding-bottom: 40px;
-    }
-
-    @media (max-width: 800px) {
-      .catalogo {
-        grid-template-columns: repeat(3, 1fr);
-      }
     }
 
     @media (max-width: 600px) {
@@ -101,7 +105,6 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 0 10px rgba(0,0,0,0.7);
-      text-align: center;
       transition: transform 0.2s;
     }
 
@@ -113,7 +116,6 @@
       width: 100%;
       aspect-ratio: 3 / 4;
       object-fit: cover;
-      display: block;
     }
 
     .card a {
@@ -137,46 +139,37 @@
       <a href="#">Comédia</a>
       <a href="#">Drama</a>
       <a href="#">Terror</a>
-      <a href="#">Aventura</a>
-      <a href="#">Romance</a>
-      <a href="#">Fantasia</a>
-      <a href="#">Sci-Fi</a>
     </div>
     <a href="#" onclick="toggleSubmenu('series')">Séries</a>
     <div id="series" class="submenu">
       <a href="#">Justified</a>
       <a href="#">Breaking Bad</a>
-      <a href="#">Game of Thrones</a>
-      <a href="#">The Big Bang Theory</a>
-      <a href="#">Stranger Things</a>
-      <a href="#">The Crown</a>
-      <a href="#">Black Mirror</a>
-      <a href="#">Narcos</a>
     </div>
   </div>
 
   <div class="content">
-    <h1>Bem-vindo ao Catálogo de Séries</h1>
-    <div class="catalogo">
+    <h1>Catálogo de Séries</h1>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar séries...">
+    </div>
+
+    <div class="catalogo" id="catalogo">
       <div class="card">
         <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
-        <a href="justified/assistir.html">Assistir Justified</a>
+        <a href="justified/assistir.html">Justified</a>
       </div>
       <div class="card">
         <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
-        <a href="breakingbad/assistir.html">Assistir Breaking Bad</a>
+        <a href="breakingbad/assistir.html">Breaking Bad</a>
       </div>
       <div class="card">
         <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
-        <a href="thewalkingdead/assistir.html">Assistir The Walking Dead</a>
+        <a href="thewalkingdead/assistir.html">The Walking Dead</a>
       </div>
       <div class="card">
         <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
-        <a href="gameofthrones/assistir.html">Assistir Game of Thrones</a>
-      </div>
-      <div class="card">
-        <img src="https://br.web.img3.acsta.net/pictures/14/01/23/13/30/209537.jpg" alt="The Big Bang Theory">
-        <a href="thebigbangtheory/assistir.html">Assistir The Big Bang Theory</a>
+        <a href="gameofthrones/assistir.html">Game of Thrones</a>
       </div>
     </div>
   </div>
@@ -197,8 +190,18 @@
 
     function toggleSubmenu(id) {
       const submenu = document.getElementById(id);
-      submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
+      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
     }
+
+    document.getElementById("searchInput").addEventListener("input", function() {
+      const filter = this.value.toLowerCase();
+      const cards = document.querySelectorAll("#catalogo .card");
+
+      cards.forEach(card => {
+        const title = card.querySelector("a").textContent.toLowerCase();
+        card.style.display = title.includes(filter) ? "block" : "none";
+      });
+    });
   </script>
 
 </body>
