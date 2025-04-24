@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Catálogo de Séries</title>
   <style>
     body {
@@ -17,7 +18,6 @@
       margin-top: 80px;
     }
 
-    /* Menu lateral */
     .menu-lateral {
       height: 100%;
       width: 0;
@@ -87,7 +87,7 @@
 
     .catalogo {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       max-width: 1000px;
       margin: 0 auto;
       gap: 20px;
@@ -106,6 +106,8 @@
       overflow: hidden;
       box-shadow: 0 0 10px rgba(0,0,0,0.7);
       transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
@@ -138,7 +140,6 @@
       <a href="#">Ação</a>
       <a href="#">Comédia</a>
       <a href="#">Drama</a>
-      <a href="#">Terror</a>
     </div>
     <a href="#" onclick="toggleSubmenu('series')">Séries</a>
     <div id="series" class="submenu">
@@ -157,19 +158,23 @@
     <div class="catalogo" id="catalogo">
       <div class="card">
         <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
-        <a href="justified/assistir.html">Justified</a>
+        <a href="#">Justified</a>
       </div>
       <div class="card">
         <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
-        <a href="breakingbad/assistir.html">Breaking Bad</a>
+        <a href="#">Breaking Bad</a>
       </div>
       <div class="card">
         <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
-        <a href="thewalkingdead/assistir.html">The Walking Dead</a>
+        <a href="#">The Walking Dead</a>
       </div>
       <div class="card">
         <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
-        <a href="gameofthrones/assistir.html">Game of Thrones</a>
+        <a href="#">Game of Thrones</a>
+      </div>
+      <div class="card">
+        <img src="https://br.web.img3.acsta.net/pictures/14/10/09/20/48/211059.jpg" alt="The Big Bang Theory">
+        <a href="#">The Big Bang Theory</a>
       </div>
     </div>
   </div>
@@ -199,7 +204,7 @@
 
       cards.forEach(card => {
         const title = card.querySelector("a").textContent.toLowerCase();
-        card.style.display = title.includes(filter) ? "block" : "none";
+        card.style.display = title.includes(filter) ? "flex" : "none";
       });
     });
   </script>
