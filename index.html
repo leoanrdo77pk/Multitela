@@ -144,7 +144,7 @@
       color: #000;
     }
 
-   /* SLIDER */
+/* SLIDER */
 .slider-container {
   display: flex;
   overflow-x: auto;
@@ -158,7 +158,7 @@
 
 .card.slide {
   flex: 0 0 auto;
-  scroll-snap-align: start;
+  scroll-snap-align: center; /* Centraliza o card */
   min-width: 200px;
   max-width: 200px;
   opacity: 1;
@@ -166,15 +166,15 @@
   animation: none;
 }
 
-    @media (max-width: 600px) {
-      .catalogo {
-        grid-template-columns: repeat(2, 1fr);
-      }
+@media (max-width: 600px) {
+  .slider-container {
+    max-width: 100%;
+  }
 
-      .slider-container {
-        max-width: 90%;
-      }
-    }
+  .card.slide {
+    min-width: 100%; /* Ajusta o tamanho do card em dispositivos móveis */
+  }
+}
   </style>
 </head>
 <body>
@@ -286,7 +286,6 @@
       });
     });
 
-// Slider automático
 let slideIndex = 0;
 const slides = document.querySelectorAll('.slide');
 
@@ -294,9 +293,14 @@ function showNextSlide() {
   slides[slideIndex].classList.remove('active');
   slideIndex = (slideIndex + 1) % slides.length;
   slides[slideIndex].classList.add('active');
+
+  // Garantir que o card ativo esteja centralizado
+  const activeCard = slides[slideIndex];
+  activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 }
 
-setInterval(showNextSlide, 5000); // troca a cada 5 segundos
+setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
+
 
   </script>
 </body>
