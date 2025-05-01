@@ -144,21 +144,27 @@
       color: #000;
     }
 
-    /* SLIDER */
-    .slider-container {
-      max-width: 300px;
-      margin: 40px auto;
-      position: relative;
-    }
+   /* SLIDER */
+.slider-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%;
+  margin: 40px auto;
+}
 
-    .slide {
-      display: none;
-    }
-
-    .slide.active {
-      display: block;
-      animation: fadeInUp 0.5s ease forwards;
-    }
+.card.slide {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  min-width: 200px;
+  max-width: 200px;
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
 
     @media (max-width: 600px) {
       .catalogo {
