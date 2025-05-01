@@ -281,6 +281,25 @@
       });
     });
   </script>
+<script src="data.js"></script>
+<script>
+  const input = document.getElementById("searchInput");
+  const resultados = document.getElementById("resultados");
+
+  input.addEventListener("input", () => {
+    const termo = input.value.toLowerCase();
+    resultados.innerHTML = "";
+
+    if (termo.length < 2) return;
+
+    const filtrados = catalogo.filter(item => item.titulo.toLowerCase().includes(termo));
+    filtrados.forEach(item => {
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="${item.url}" style="color:limegreen; text-decoration:none;">${item.titulo}</a>`;
+      resultados.appendChild(li);
+    });
+  });
+</script>
 
 </body>
 </html>
