@@ -165,6 +165,26 @@
   transform: none;
   animation: none;
 }
+.slider-indicators {
+  text-align: center;
+  margin-top: -10px;
+  margin-bottom: 30px;
+}
+
+.slider-indicators span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 5px;
+  background-color: #555;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.slider-indicators span.active {
+  background-color: limegreen;
+}
 
 @media (max-width: 600px) {
   .slider-container {
@@ -243,6 +263,8 @@
         <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
         <a href="#">The Big Bang Theory</a>
       </div>
+      <div class="slider-indicators" id="sliderIndicators"></div>
+
     </div>
 
     <p style="text-align: center; font-size: 18px; margin-top: -10px; color: #ccc;">
@@ -321,6 +343,31 @@ function showNextSlide() {
 
 setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
 
+<script>
+  const slider = document.getElementById('slider');
+  const slides = slider.querySelectorAll('.slide');
+  const indicatorsContainer = document.getElementById('sliderIndicators');
+
+  slides.forEach((_, index) => {
+    const indicator = document.createElement('span');
+    if (index === 0) indicator.classList.add('active');
+    indicator.addEventListener('click', () => {
+      slider.scrollLeft = slides[index].offsetLeft;
+    });
+    indicatorsContainer.appendChild(indicator);
+  });
+
+  slider.addEventListener('scroll', () => {
+    const scrollLeft = slider.scrollLeft;
+    const slideWidth = slides[0].offsetWidth + 20; // 20 = gap
+    const index = Math.round(scrollLeft / slideWidth);
+
+    const indicators = indicatorsContainer.querySelectorAll('span');
+    indicators.forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+  });
+</script>
 
   </script>
 </body>
