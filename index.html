@@ -222,11 +222,9 @@
       Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
     </p>
 
-<div class="search-box">
-  <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
-</div>
-<ul id="resultados" style="list-style:none; padding-left: 0;"></ul>
-
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
+    </div>
 
     <div class="catalogo" id="catalogo">
       <div class="card">
@@ -281,25 +279,7 @@
       });
     });
   </script>
-<script src="data.js"></script>
-<script>
-  const input = document.getElementById("searchInput");
-  const resultados = document.getElementById("resultados");
-
-  input.addEventListener("input", () => {
-    const termo = input.value.toLowerCase();
-    resultados.innerHTML = "";
-
-    if (termo.length < 2) return;
-
-    const filtrados = catalogo.filter(item => item.titulo.toLowerCase().includes(termo));
-    filtrados.forEach(item => {
-      const li = document.createElement("li");
-      li.innerHTML = `<a href="${item.url}" style="color:limegreen; text-decoration:none;">${item.titulo}</a>`;
-      resultados.appendChild(li);
-    });
-  });
-</script>
 
 </body>
 </html>
+
