@@ -1,35 +1,37 @@
-// websocket.js
+// web.js
 
-const socket = new WebSocket('ws://lexus.hubns.top:80'); // Usando ws:// para WebSocket
+// Dark Mode Toggle
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+}
 
-// Quando a conexão for aberta
-socket.onopen = () => {
-  console.log('Conectado ao servidor WebSocket');
-  socket.send('Solicitar dados das séries');
-};
-
-// Quando receber uma mensagem do servidor
-socket.onmessage = (event) => {
-  const seriesData = JSON.parse(event.data);  // Aqui estamos assumindo que o servidor envia os dados no formato JSON
-  console.log('Dados das séries recebidos:', seriesData);
-  
-  // Aqui você pode processar os dados das séries e exibir no seu site
-  const el = document.getElementById('realtime');
-  if (el) {
-    el.textContent = seriesData.someData || 'Dados das séries não encontrados';  // Modifique conforme a estrutura dos dados
+// Aplica tema salvo
+window.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
   }
-};
+});
 
-// Em caso de erro
-socket.onerror = (error) => {
-  console.error('Erro no WebSocket:', error);
-};
+// Botão "voltar ao topo"
+const voltarTopo = document.createElement('button');
+voltarTopo.textContent = '↑';
+voltarTopo.style.position = 'fixed';
+voltarTopo.style.bottom = '20px';
+voltarTopo.style.right = '20px';
+voltarTopo.style.padding = '10px';
+voltarTopo.style.background = '#333';
+voltarTopo.style.color = '#fff';
+voltarTopo.style.border = 'none';
+voltarTopo.style.borderRadius = '50%';
+voltarTopo.style.cursor = 'pointer';
+voltarTopo.style.zIndex = '1000';
+voltarTopo.style.display = 'none';
 
-// Quando a conexão for fechada
-socket.onclose = (event) => {
-  if (event.wasClean) {
-    console.log(`Conexão fechada com código ${event.code} e razão: ${event.reason}`);
-  } else {
-    console.error('A conexão foi encerrada de forma inesperada');
-  }
-};
+voltarTopo.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+document.body.appendChild(voltarTopo);
+
+window.addEventListener('scroll', () => {
+  voltarTopo.style.display = window.scrollY > 300 ? 'block' : 'none';
+});
