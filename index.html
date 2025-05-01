@@ -1,153 +1,296 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Slider com Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Filmes e Séries Online</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Poppins, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
+      background-color: #121212;
+      color: white;
     }
 
-    .slider-container {
-      position: relative;
-      width: 100%;
-      max-width: 960px;
-      margin: auto;
-      overflow: hidden;
+    h1 {
+      text-align: center;
+      margin-top: 80px;
     }
 
-    .slider-track {
-      display: flex;
-      transition: transform 0.4s ease-in-out;
+    .menu-btn {
+      font-size: 30px;
+      cursor: pointer;
+      background-color: transparent;
+      color: white;
+      border: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      transition: transform 0.3s ease;
     }
 
-    .card {
-      flex: 0 0 100%;
-      box-sizing: border-box;
-      padding: 10px;
+    .menu-btn:hover {
+      transform: scale(1.1);
     }
 
-    .card-content {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    .menu-lateral {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-y: auto;
+      transition: 0.5s;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
+    .menu-lateral a {
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 15px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .menu-lateral a:hover {
+      background-color: limegreen;
+    }
+
+    .submenu {
+      display: none;
+      background-color: #333;
+      padding-left: 20px;
+    }
+
+    .menu-lateral .active .submenu {
+      display: block;
+    }
+
+    .content {
+      transition: margin-left .5s;
       padding: 20px;
       text-align: center;
     }
 
-    .indicators {
-      text-align: center;
-      margin-top: 10px;
+    .search-box {
+      margin: 20px auto;
+      max-width: 400px;
     }
 
-    .indicator {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin: 0 5px;
-      background-color: #bbb;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    .indicator.active {
-      background-color: #333;
-    }
-
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 24px;
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
       border: none;
-      padding: 8px;
-      cursor: pointer;
-      z-index: 10;
-      border-radius: 50%;
+      font-size: 16px;
     }
 
-    .arrow.left {
-      left: 10px;
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      max-width: 1000px;
+      margin: 0 auto;
+      gap: 20px;
+      padding-bottom: 40px;
     }
 
-    .arrow.right {
-      right: 10px;
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+    }
+
+    .card a {
+      display: block;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      background-color: limegreen;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .card:hover a {
+      background-color: #00cc44;
+      color: #000;
+    }
+
+    /* SLIDER */
+    .slider-container {
+      max-width: 300px;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+    }
+
+    .slide.active {
+      display: block;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    @media (max-width: 600px) {
+      .catalogo {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .slider-container {
+        max-width: 90%;
+      }
     }
   </style>
 </head>
 <body>
+  <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
 
-<div class="slider-container">
-  <div class="slider-track" id="sliderTrack">
-    <div class="card">
-      <div class="card-content">
-        <h3>Card 1</h3>
-        <p>Conteúdo do card 1</p>
+  <div id="menuLateral" class="menu-lateral">
+    <a href="index.html">Home</a>
+    <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
+    <div id="filmes" class="submenu">
+      <a href="filmes.html">Todos</a>
+      <a href="#">Ação</a>
+      <a href="#">Comédia</a>
+      <a href="#">Drama</a>
+    </div>
+
+    <a href="#" onclick="toggleSubmenu('series')">Séries</a>
+    <div id="series" class="submenu">
+      <a href="series.html">Todos</a>
+      <a href="#">Justified</a>
+      <a href="#">Breaking Bad</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>Em destaque</h1>
+
+    <!-- SLIDER -->
+    <div class="slider-container" id="slider">
+      <div class="card slide active">
+        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
+        <a href="/justified/assistir.html">Justified</a>
+      </div>
+      <div class="card slide">
+        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
+        <a href="#">Breaking Bad</a>
+      </div>
+      <div class="card slide">
+        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
+        <a href="#">The Walking Dead</a>
+      </div>
+      <div class="card slide">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
+        <a href="#">Game of Thrones</a>
+      </div>
+      <div class="card slide">
+        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
+        <a href="#">The Big Bang Theory</a>
       </div>
     </div>
-    <div class="card">
-      <div class="card-content">
-        <h3>Card 2</h3>
-        <p>Conteúdo do card 2</p>
-      </div>
+
+    <p style="text-align: center; font-size: 18px; margin-top: -10px; color: #ccc;">
+      Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
+    </p>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
     </div>
-    <div class="card">
-      <div class="card-content">
-        <h3>Card 3</h3>
-        <p>Conteúdo do card 3</p>
+
+    <div class="catalogo" id="catalogo">
+      <div class="card">
+        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
+        <a href="/justified/assistir.html">Justified</a>
+      </div>
+      <div class="card">
+        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
+        <a href="#">Breaking Bad</a>
+      </div>
+      <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
+        <a href="#">The Walking Dead</a>
+      </div>
+      <div class="card">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
+        <a href="#">Game of Thrones</a>
+      </div>
+      <div class="card">
+        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
+        <a href="#">The Big Bang Theory</a>
       </div>
     </div>
   </div>
 
-  <button class="arrow left" onclick="prevSlide()">❮</button>
-  <button class="arrow right" onclick="nextSlide()">❯</button>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menuLateral");
+      const content = document.querySelector(".content");
 
-  <div class="indicators" id="indicators"></div>
-</div>
+      if (menu.style.width === "250px") {
+        menu.style.width = "0";
+        content.style.marginLeft = "0";
+      } else {
+        menu.style.width = "250px";
+        content.style.marginLeft = "250px";
+      }
+    }
 
-<script>
-  const track = document.getElementById("sliderTrack");
-  const indicators = document.getElementById("indicators");
-  const cards = document.querySelectorAll(".card");
-  let currentIndex = 0;
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+    }
 
-  function updateSlider() {
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
-    updateIndicators();
-  }
+    document.getElementById("searchInput").addEventListener("input", function() {
+      const filter = this.value.toLowerCase();
+      const cards = document.querySelectorAll("#catalogo .card");
 
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % cards.length;
-    updateSlider();
-  }
-
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-    updateSlider();
-  }
-
-  function updateIndicators() {
-    indicators.innerHTML = "";
-    cards.forEach((_, i) => {
-      const dot = document.createElement("span");
-      dot.classList.add("indicator");
-      if (i === currentIndex) dot.classList.add("active");
-      dot.addEventListener("click", () => {
-        currentIndex = i;
-        updateSlider();
+      cards.forEach(card => {
+        const title = card.querySelector("a").textContent.toLowerCase();
+        card.style.display = title.includes(filter) ? "flex" : "none";
       });
-      indicators.appendChild(dot);
     });
-  }
 
-  // Inicializa
-  updateSlider();
-</script>
+    // Slider automático
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
 
+    function showNextSlide() {
+      slides[slideIndex].classList.remove('active');
+      slideIndex = (slideIndex + 1) % slides.length;
+      slides[slideIndex].classList.add('active');
+    }
+
+    setInterval(showNextSlide, 5000); // troca a cada 5 segundos
+  </script>
 </body>
 </html>
