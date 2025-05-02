@@ -135,6 +135,56 @@
       padding: 40px 20px;
     }
 
+
+
+    /* SLIDER */
+.slider-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%;
+  margin: 40px auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.slider-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e Opera */
+}
+
+.card.slide {
+  flex: 0 0 auto;
+  scroll-snap-align: center; /* Centraliza o card */
+  min-width: 200px;
+  max-width: 200px;
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
+
+
+    /* Indicadores de bolinhas */
+.slider-dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.slider-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.slider-dot.active {
+  background-color: limegreen; /* Cor do ponto ativo */
+}
     @media (max-width: 600px) {
       #Globo {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
