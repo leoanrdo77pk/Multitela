@@ -168,6 +168,28 @@
   animation: none;
 }
 
+
+    /* Indicadores de bolinhas */
+.slider-dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.slider-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.slider-dot.active {
+  background-color: limegreen; /* Cor do ponto ativo */
+}
+
 @media (max-width: 600px) {
   .slider-container {
     max-width: 100%;
@@ -245,7 +267,10 @@
         <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
         <a href="#">The Big Bang Theory</a>
       </div>
+      <!-- Indicadores de bolinhas -->
+<div class="slider-dots" id="sliderDots"></div>
     </div>
+
 
     <p style="text-align: center; font-size: 18px; margin-top: -10px; color: #ccc;">
       Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
@@ -310,16 +335,52 @@
 
 let slideIndex = 0;
 const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.getElementById('sliderDots');
+
+// Criação das bolinhas
+function createDots() {
+  slides.forEach((_, index) => {
+    const dot = document.createElement('span');
+    dot.classList.add('slider-dot');
+    dot.addEventListener('click', () => goToSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+}
+
+function updateDots() {
+  const dots = document.querySelectorAll('.slider-dot');
+  dots.forEach((dot, index) => {
+    if (index === slideIndex) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
 
 function showNextSlide() {
   slides[slideIndex].classList.remove('active');
   slideIndex = (slideIndex + 1) % slides.length;
   slides[slideIndex].classList.add('active');
+  
+  updateDots();
 
   // Garantir que o card ativo esteja centralizado
   const activeCard = slides[slideIndex];
   activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 }
+
+function goToSlide(index) {
+  slides[slideIndex].classList.remove('active');
+  slideIndex = index;
+  slides[slideIndex].classList.add('active');
+  updateDots();
+  const activeCard = slides[slideIndex];
+  activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+}
+
+createDots(); // Cria as bolinhas
+updateDots(); // Atualiza o estado inicial das bolinhas
 
 setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
 
