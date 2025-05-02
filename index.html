@@ -19,23 +19,24 @@
     }
 
     .menu-btn {
-      font-size: 30px;
-      cursor: pointer;
-      background-color: transparent;
-      color: white;
-      border: none;
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-    }
+  font-size: 30px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente */
+  color: white;
+  border: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  padding: 10px; /* Espaço interno para maior área clicável */
+  border-radius: 5px; /* Bordas arredondadas */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Suaviza a transição */
+}
 
-    .menu-btn:hover {
-      transform: scale(1.1);
-    }
-
- 
+.menu-btn:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.9); /* Aumenta a opacidade do fundo no hover */
+}
 .menu-lateral {
   height: 100%;
   width: 0;
