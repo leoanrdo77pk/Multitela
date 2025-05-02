@@ -271,18 +271,31 @@
 
   <script>
     function toggleMenu() {
-      const menu = document.getElementById("menuLateral");
-      if (menu.style.width === "250px") {
-        menu.style.width = "0";
-      } else {
-        menu.style.width = "250px";
-      }
-    }
+    const menu = document.getElementById("menuLateral");
+    const content = document.querySelector(".content");
 
-    function toggleSubmenu(id) {
-      const submenu = document.getElementById(id);
-      submenu.classList.toggle("active");
+    if (menu.style.width === "250px") {
+      menu.style.width = "0";
+      content.style.marginLeft = "0";
+
+      // Exibe novamente os nomes e ícones
+      const textos = menu.querySelectorAll('.menu-text');
+      textos.forEach(texto => texto.style.display = "inline");
+
+    } else {
+      menu.style.width = "250px";
+      content.style.marginLeft = "250px";
+
+      // Oculta os nomes e ícones ao abrir o menu
+      const textos = menu.querySelectorAll('.menu-text');
+      textos.forEach(texto => texto.style.display = "none");
     }
+  }
+
+  function toggleSubmenu(id) {
+    const submenu = document.getElementById(id);
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  }
   </script>
 
   <!-- Carrega os dados das séries -->
