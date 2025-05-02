@@ -63,12 +63,18 @@
     .menu-lateral a:hover {
       background-color: limegreen;
     }
-
-    .submenu {
+.submenu {
       display: none;
       background-color: #333;
       padding-left: 20px;
     }
+
+    /* Exemplo de estilização para a categoria selecionada */
+.submenu a.active {
+  color: #ff6347; /* Cor para a categoria ativa */
+  font-weight: bold;
+}
+
 
     .menu-lateral .active .submenu {
       display: block;
@@ -210,23 +216,24 @@
 <body>
   <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
 
-  <div id="menuLateral" class="menu-lateral">
-    <a href="index.html">Home</a>
-    <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
-    <div id="filmes" class="submenu">
-      <a href="filmes.html">Todos</a>
-      <a href="#">Ação</a>
-      <a href="#">Comédia</a>
-      <a href="#">Drama</a>
-    </div>
-
-    <a href="#" onclick="toggleSubmenu('series')">Séries</a>
-    <div id="series" class="submenu">
-      <a href="series.html">Todos</a>
-      <a href="#">Justified</a>
-      <a href="#">Breaking Bad</a>
-    </div>
+<div id="menuLateral" class="menu-lateral">
+  <a href="index.html">Home</a>
+  <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
+  <div id="filmes" class="submenu">
+    <a href="filmes.html">Todos</a>
+    <a href="#">Ação</a>
+    <a href="#">Comédia</a>
+    <a href="#">Drama</a>
   </div>
+
+  <a href="#" onclick="toggleSubmenu('series')">Séries</a>
+  <div id="series" class="submenu">
+    <a href="series.html">Todos</a>
+    <a href="#" onclick="filterSeriesByCategory('Drama')">Drama</a> 
+    <a href="#" onclick="filterSeriesByCategory('Ação')">Ação</a>
+  </div>
+</div>
+
 
   <div class="content">
     <h1>Em destaque</h1>
@@ -287,29 +294,9 @@
       <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
     </div>
 
-    <div class="catalogo" id="catalogo">
-      <div class="card">
-        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
-        <a href="/justified/assistir.html">Justified</a>
-      </div>
-      <div class="card">
-        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
-        <a href="#">Breaking Bad</a>
-      </div>
-      <div class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
-        <a href="#">The Walking Dead</a>
-      </div>
-      <div class="card">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
-        <a href="#">Game of Thrones</a>
-      </div>
-      <div class="card">
-        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
-        <a href="#">The Big Bang Theory</a>
-      </div>
-    </div>
-  </div>
+<h2>Novas Séries</h2>
+<div id="novasSeries"></div>
+
 
 <script>
   function toggleMenu() {
@@ -405,6 +392,32 @@
     `;
     catalogo.appendChild(card);
   });
+</script>
+<script>
+function filterSeriesByCategory(categoria) {
+  const container = document.getElementById('novasSeries');
+  container.innerHTML = ''; // Limpa a área onde as séries serão exibidas
+
+  // Filtra as séries pela categoria selecionada
+  const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === categoria);
+
+  // Exibe as séries filtradas
+  seriesFiltradas.forEach(serie => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${serie.imagem}" alt="${serie.titulo}">
+      <a href="${serie.link}">${serie.titulo}</a>
+    `;
+    container.appendChild(card);
+  });
+
+  // Marca a categoria como ativa
+  const menuLinks = document.querySelectorAll('#series .submenu a');
+  menuLinks.forEach(link => link.classList.remove('active'));
+  document.querySelector(`#series .submenu a:contains(${categoria})`).classList.add('active');
+}
+
 </script>
 
 </body>
