@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Categoria: Drama</title>
+  <title>Categoria: Globo</title>
   <style>
     body {
       font-family: Poppins, sans-serif;
@@ -165,45 +165,45 @@
 
   <div class="content">
     <h1>Categoria: Globo</h1>
-
-    <!-- Cards serão inseridos aqui -->
     <div id="Globo"></div>
-  
-    </div>
   </div>
 
-<script>
-  const catalogo = document.getElementById("catalogo");
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menuLateral");
+      if (menu.style.width === "250px") {
+        menu.style.width = "0";
+      } else {
+        menu.style.width = "250px";
+      }
+    }
 
-  seriesNovas.forEach(serie => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${serie.imagem}" alt="${serie.titulo}">
-      <a href="${serie.link}">${serie.titulo}</a>
-    `;
-    catalogo.appendChild(card);
-  });
-</script>
-<script>
-  function filterSeriesByCategory(categoria) {
-    const container = document.getElementById('novasSeries');
-    container.innerHTML = ''; // Limpa a área onde as séries serão exibidas
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      submenu.classList.toggle("active");
+    }
+  </script>
 
-    // Filtra as séries pela categoria selecionada
-    const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === categoria);
+  <!-- Carrega os dados das séries -->
+  <script src="series.js"></script>
 
-    // Exibe as séries filtradas
-    seriesFiltradas.forEach(serie => {
+  <!-- Gera os cards da categoria Globo -->
+  <script>
+    const container = document.getElementById('Globo');
+
+    const seriesGlobo = seriesNovas.filter(serie => serie.categoria === "Globo");
+
+    seriesGlobo.forEach(serie => {
       const card = document.createElement('div');
-      card.className = 'card';
+      card.classList.add('card');
+
       card.innerHTML = `
         <img src="${serie.imagem}" alt="${serie.titulo}">
         <a href="${serie.link}">${serie.titulo}</a>
       `;
+
       container.appendChild(card);
     });
-  }
-</script>
+  </script>
 </body>
 </html>
