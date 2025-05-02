@@ -151,12 +151,16 @@
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */ /* Comentado para desativar a rolagem suave */
   gap: 20px;
   padding: 20px;
   max-width: 100%;
   margin: 40px auto;
 }
+html, body {
+  scroll-behavior: auto !important;
+}
+
 
 .card.slide {
   flex: 0 0 auto;
