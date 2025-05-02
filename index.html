@@ -349,55 +349,44 @@
     });
   });
 
-  let slideIndex = 0;
-  const slides = document.querySelectorAll('.slide');
+ const slider = document.getElementById('slider');
+  const slides = slider.querySelectorAll('.slide');
   const dotsContainer = document.getElementById('sliderDots');
+  let currentIndex = 0;
 
-  // Criação das bolinhas
-  function createDots() {
-    slides.forEach((_, index) => {
-      const dot = document.createElement('span');
-      dot.classList.add('slider-dot');
-      dot.addEventListener('click', () => goToSlide(index));
-      dotsContainer.appendChild(dot);
-    });
+  // Cria bolinhas
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.classList.add('slider-dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => scrollToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  // Autoplay
+  function autoSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    scrollToSlide(currentIndex);
   }
 
-  function updateDots() {
-    const dots = document.querySelectorAll('.slider-dot');
-    dots.forEach((dot, index) => {
-      if (index === slideIndex) {
-        dot.classList.add('active');
-      } else {
-        dot.classList.remove('active');
+  function scrollToSlide(index) {
+    const slide = slides[index];
+    if (slide) {
+      slider.scrollTo({
+        left: slide.offsetLeft - slider.offsetLeft,
+        behavior: 'smooth'
+      });
+
+      // Atualiza bolinhas
+      document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
+      if (dotsContainer.children[index]) {
+        dotsContainer.children[index].classList.add('active');
       }
-    });
+    }
   }
 
-  function showNextSlide() {
-    slides[slideIndex].classList.remove('active');
-    slideIndex = (slideIndex + 1) % slides.length;
-    slides[slideIndex].classList.add('active');
-
-    updateDots();
-
-    // Centralizar slide ativo
-    const activeCard = slides[slideIndex];
-    activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-  }
-
-  function goToSlide(index) {
-    slides[slideIndex].classList.remove('active');
-    slideIndex = index;
-    slides[slideIndex].classList.add('active');
-    updateDots();
-    const activeCard = slides[slideIndex];
-    activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-  }
-
-  createDots();
-  updateDots();
-  setInterval(showNextSlide, 5000);
+  // Inicia autoplay
+  setInterval(autoSlide, 3000); // muda a cada 3 segundos
 </script>
 
 </body>
