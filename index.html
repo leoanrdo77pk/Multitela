@@ -316,15 +316,12 @@ let slideIndex = 0;
 const slides = document.querySelectorAll('.slide');
 
 function showNextSlide() {
-  slides[slideIndex].classList.remove('active');
-  slideIndex = (slideIndex + 1) % slides.length;
-  slides[slideIndex].classList.add('active');
-
-  // Removido scroll automático
-  // activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+  slides[slideIndex].classList.remove('active');  // Remove a classe de ativo do slide atual
+  slideIndex = (slideIndex + 1) % slides.length;   // Avança para o próximo slide
+  slides[slideIndex].classList.add('active');     // Adiciona a classe de ativo ao novo slide
 }
 
-setInterval(showNextSlide, 5000);
+setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
 
   </script>
 </body>
