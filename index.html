@@ -151,16 +151,12 @@
   display: flex;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  /* scroll-behavior: smooth; */ /* Comentado para desativar a rolagem suave */
+  scroll-behavior: smooth;
   gap: 20px;
   padding: 20px;
   max-width: 100%;
   margin: 40px auto;
 }
-html, body {
-  scroll-behavior: auto !important;
-}
-
 
 .card.slide {
   flex: 0 0 auto;
@@ -316,18 +312,16 @@ let slideIndex = 0;
 const slides = document.querySelectorAll('.slide');
 
 function showNextSlide() {
-  // Remove a classe de ativo do slide atual
   slides[slideIndex].classList.remove('active');
-  
-  // Avança para o próximo slide, garantindo que a rotação seja cíclica
   slideIndex = (slideIndex + 1) % slides.length;
-  
-  // Adiciona a classe de ativo ao próximo slide
   slides[slideIndex].classList.add('active');
+
+  // Garantir que o card ativo esteja centralizado
+  const activeCard = slides[slideIndex];
+  activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 }
 
-// Inicia a troca automática de slides a cada 5 segundos
-setInterval(showNextSlide, 5000); 
+setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
 
 
   </script>
