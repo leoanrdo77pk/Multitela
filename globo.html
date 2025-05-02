@@ -172,20 +172,38 @@
     </div>
   </div>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menuLateral");
-      if (menu.style.width === "250px") {
-        menu.style.width = "0";
-      } else {
-        menu.style.width = "250px";
-      }
-    }
+<script>
+  const catalogo = document.getElementById("catalogo");
 
-    function toggleSubmenu(id) {
-      const submenu = document.getElementById(id);
-      submenu.classList.toggle("active");
-    }
-  </script>
+  seriesNovas.forEach(serie => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${serie.imagem}" alt="${serie.titulo}">
+      <a href="${serie.link}">${serie.titulo}</a>
+    `;
+    catalogo.appendChild(card);
+  });
+</script>
+<script>
+  function filterSeriesByCategory(categoria) {
+    const container = document.getElementById('novasSeries');
+    container.innerHTML = ''; // Limpa a área onde as séries serão exibidas
+
+    // Filtra as séries pela categoria selecionada
+    const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === categoria);
+
+    // Exibe as séries filtradas
+    seriesFiltradas.forEach(serie => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${serie.imagem}" alt="${serie.titulo}">
+        <a href="${serie.link}">${serie.titulo}</a>
+      `;
+      container.appendChild(card);
+    });
+  }
+</script>
 </body>
 </html>
