@@ -168,6 +168,51 @@
   animation: none;
 }
 
+
+
+
+    
+.slider-wrapper {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 40px auto;
+}
+
+.slider-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider-container {
+  overflow: hidden;
+  scroll-snap-type: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 8px;
+}
+
+.indicators span {
+  width: 10px;
+  height: 10px;
+  background-color: #777;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.indicators span.active {
+  background-color: limegreen;
+}
+
 @media (max-width: 600px) {
   .slider-container {
     max-width: 100%;
@@ -203,29 +248,11 @@
   <div class="content">
     <h1>Em destaque</h1>
 
-    <!-- SLIDER -->
-    <div class="slider-container" id="slider">
-      <div class="card slide active">
-        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
-        <a href="/justified/assistir.html">Justified</a>
-      </div>
+   <div class="slider-wrapper">
+  <div class="slider-container" id="slider">
+    <div class="slider-inner" id="sliderInner">
+      <!-- SLIDES -->
       <div class="card slide">
-        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
-        <a href="#">Breaking Bad</a>
-      </div>
-      <div class="card slide">
-        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
-        <a href="#">The Walking Dead</a>
-      </div>
-      <div class="card slide">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
-        <a href="#">Game of Thrones</a>
-      </div>
-      <div class="card slide">
-        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
-        <a href="#">The Big Bang Theory</a>
-      </div>
-      <div class="card slide active">
         <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
         <a href="/justified/assistir.html">Justified</a>
       </div>
@@ -246,6 +273,12 @@
         <a href="#">The Big Bang Theory</a>
       </div>
     </div>
+  </div>
+
+  <!-- Indicadores -->
+  <div class="indicators" id="indicators"></div>
+</div>
+
 
     <p style="text-align: center; font-size: 18px; margin-top: -10px; color: #ccc;">
       Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
@@ -319,10 +352,46 @@ function showNextSlide() {
   // Garantir que o card ativo esteja centralizado
   const activeCard = slides[slideIndex];
   activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-}
 
 setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
 
+}
+    <script>
+  const sliderInner = document.getElementById('sliderInner');
+  const slides = sliderInner.children;
+  const indicatorsContainer = document.getElementById('indicators');
+  let currentIndex = 0;
+
+  // Criar indicadores
+  for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement('span');
+    dot.addEventListener('click', () => goToSlide(i));
+    indicatorsContainer.appendChild(dot);
+  }
+
+  function updateIndicators(index) {
+    const dots = indicatorsContainer.children;
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active', i === index);
+    }
+  }
+
+  function goToSlide(index) {
+    const slideWidth = slides[0].offsetWidth;
+    sliderInner.style.transform = `translateX(-${index * (slideWidth + 20)}px)`;
+    currentIndex = index;
+    updateIndicators(index);
+  }
+
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    goToSlide(currentIndex);
+  }
+
+  // Iniciar
+  goToSlide(currentIndex);
+  setInterval(nextSlide, 4000); // Muda a cada 4 segundos
+</script>
 
   </script>
 </body>
