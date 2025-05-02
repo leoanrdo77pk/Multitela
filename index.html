@@ -320,13 +320,11 @@ function showNextSlide() {
   slideIndex = (slideIndex + 1) % slides.length;
   slides[slideIndex].classList.add('active');
 
-  // Garantir que o card ativo esteja centralizado
-  const activeCard = slides[slideIndex];
-  activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+  // Removido scroll automático
+  // activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 }
 
-setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
-
+setInterval(showNextSlide, 5000);
 
   </script>
 </body>
