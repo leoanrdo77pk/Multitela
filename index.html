@@ -13,9 +13,26 @@
       color: white;
     }
 
-    h1 {
-      text-align: center;
-      margin-top: 80px;
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1001;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: limegreen;
+      text-decoration: none;
     }
 
     .menu-btn {
@@ -24,10 +41,6 @@
       background-color: transparent;
       color: white;
       border: none;
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
       transition: transform 0.3s ease;
     }
 
@@ -45,7 +58,7 @@
       overflow-y: auto;
       transition: 0.5s;
       padding-top: 60px;
-      z-index: 999;
+      z-index: 1000;
     }
 
     .menu-lateral a {
@@ -72,7 +85,7 @@
     }
 
     .content {
-      transition: margin-left .5s;
+      margin-top: 80px;
       padding: 20px;
       text-align: center;
     }
@@ -144,41 +157,41 @@
       color: #000;
     }
 
-/* SLIDER */
-.slider-container {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  gap: 20px;
-  padding: 20px;
-  max-width: 100%;
-  margin: 40px auto;
-}
+    /* SLIDER */
+    .slider-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      gap: 20px;
+      padding: 20px;
+      max-width: 100%;
+      margin: 40px auto;
+    }
 
-.card.slide {
-  flex: 0 0 auto;
-  scroll-snap-align: center; /* Centraliza o card */
-  min-width: 200px;
-  max-width: 200px;
-  opacity: 1;
-  transform: none;
-  animation: none;
-}
+    .card.slide {
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      min-width: 200px;
+      max-width: 200px;
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
 
-@media (max-width: 600px) {
-  .slider-container {
-    max-width: 100%;
-  }
-
-  .card.slide {
-    min-width: 50%; /* Ajusta o tamanho do card em dispositivos móveis */
-  }
-}
+    @media (max-width: 600px) {
+      .card.slide {
+        min-width: 50%;
+      }
+    }
   </style>
 </head>
 <body>
-  <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
+
+  <header>
+    <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
+    <a href="index.html" class="logo">Filmes e Séries</a>
+  </header>
 
   <div id="menuLateral" class="menu-lateral">
     <a href="index.html">Home</a>
@@ -201,9 +214,8 @@
   <div class="content">
     <h1>Em destaque</h1>
 
-    <!-- SLIDER -->
-    <div class="slider-container" id="slider">
-      <div class="card slide active">
+    <div class="slider-container">
+      <div class="card slide">
         <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
         <a href="/justified/assistir.html">Justified</a>
       </div>
@@ -214,38 +226,10 @@
       <div class="card slide">
         <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
         <a href="#">The Walking Dead</a>
-      </div>
-      <div class="card slide">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
-        <a href="#">Game of Thrones</a>
-      </div>
-      <div class="card slide">
-        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
-        <a href="#">The Big Bang Theory</a>
-      </div>
-      <div class="card slide active">
-        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
-        <a href="/justified/assistir.html">Justified</a>
-      </div>
-      <div class="card slide">
-        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
-        <a href="#">Breaking Bad</a>
-      </div>
-      <div class="card slide">
-        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
-        <a href="#">The Walking Dead</a>
-      </div>
-      <div class="card slide">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
-        <a href="#">Game of Thrones</a>
-      </div>
-      <div class="card slide">
-        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
-        <a href="#">The Big Bang Theory</a>
       </div>
     </div>
 
-    <p style="text-align: center; font-size: 18px; margin-top: -10px; color: #ccc;">
+    <p style="text-align: center; font-size: 18px; color: #ccc;">
       Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
     </p>
 
@@ -253,7 +237,7 @@
       <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
     </div>
 
-    <div class="catalogo" id="catalogo">
+    <div class="catalogo">
       <div class="card">
         <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
         <a href="/justified/assistir.html">Justified</a>
@@ -266,62 +250,20 @@
         <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
         <a href="#">The Walking Dead</a>
       </div>
-      <div class="card">
-        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
-        <a href="#">Game of Thrones</a>
-      </div>
-      <div class="card">
-        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
-        <a href="#">The Big Bang Theory</a>
-      </div>
     </div>
   </div>
 
   <script>
     function toggleMenu() {
-      const menu = document.getElementById("menuLateral");
-      const content = document.querySelector(".content");
-
-      if (menu.style.width === "250px") {
-        menu.style.width = "0";
-        content.style.marginLeft = "0";
-      } else {
-        menu.style.width = "250px";
-        content.style.marginLeft = "250px";
-      }
+      const menu = document.getElementById('menuLateral');
+      menu.style.width = (menu.style.width === '250px') ? '0' : '250px';
     }
 
     function toggleSubmenu(id) {
       const submenu = document.getElementById(id);
-      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+      submenu.classList.toggle('active');
     }
-
-    document.getElementById("searchInput").addEventListener("input", function() {
-      const filter = this.value.toLowerCase();
-      const cards = document.querySelectorAll("#catalogo .card");
-
-      cards.forEach(card => {
-        const title = card.querySelector("a").textContent.toLowerCase();
-        card.style.display = title.includes(filter) ? "flex" : "none";
-      });
-    });
-
-let slideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-
-function showNextSlide() {
-  slides[slideIndex].classList.remove('active');
-  slideIndex = (slideIndex + 1) % slides.length;
-  slides[slideIndex].classList.add('active');
-
-  // Garantir que o card ativo esteja centralizado
-  const activeCard = slides[slideIndex];
-  activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-}
-
-setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
-
-
   </script>
+
 </body>
 </html>
