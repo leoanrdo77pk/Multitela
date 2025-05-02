@@ -316,12 +316,19 @@ let slideIndex = 0;
 const slides = document.querySelectorAll('.slide');
 
 function showNextSlide() {
-  slides[slideIndex].classList.remove('active');  // Remove a classe de ativo do slide atual
-  slideIndex = (slideIndex + 1) % slides.length;   // Avança para o próximo slide
-  slides[slideIndex].classList.add('active');     // Adiciona a classe de ativo ao novo slide
+  // Remove a classe de ativo do slide atual
+  slides[slideIndex].classList.remove('active');
+  
+  // Avança para o próximo slide, garantindo que a rotação seja cíclica
+  slideIndex = (slideIndex + 1) % slides.length;
+  
+  // Adiciona a classe de ativo ao próximo slide
+  slides[slideIndex].classList.add('active');
 }
 
-setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
+// Inicia a troca automática de slides a cada 5 segundos
+setInterval(showNextSlide, 5000); 
+
 
   </script>
 </body>
