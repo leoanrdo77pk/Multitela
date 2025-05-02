@@ -11,6 +11,7 @@
       padding: 0;
       background-color: #121212;
       color: white;
+      overflow-x: hidden; /* impede rolagem horizontal */
     }
 
     h1 {
@@ -156,6 +157,11 @@
   padding: 20px;
   max-width: 100%;
   margin: 40px auto;
+  scrollbar-width: none; /* Firefox */
+}
+
+.slider-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e Opera */
 }
 
 .card.slide {
