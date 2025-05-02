@@ -387,6 +387,24 @@
 
   // Inicia autoplay
   setInterval(autoSlide, 3000); // muda a cada 3 segundos
+
+
+</script>
+
+
+  <script src="series.js"></script>
+<script>
+  const catalogo = document.getElementById("catalogo");
+
+  seriesNovas.forEach(serie => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${serie.imagem}" alt="${serie.titulo}">
+      <a href="${serie.link}">${serie.titulo}</a>
+    `;
+    catalogo.appendChild(card);
+  });
 </script>
 
 </body>
