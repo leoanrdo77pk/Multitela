@@ -13,11 +13,6 @@
       color: white;
     }
 
-    h1 {
-      text-align: center;
-      margin-top: 80px;
-    }
-
     /* Cabeçalho */
     .header {
       display: flex;
@@ -32,18 +27,24 @@
       z-index: 999;
     }
 
+    /* Logo do menu */
     .header .logo {
       font-size: 24px;
       font-weight: bold;
       color: limegreen;
+      margin-right: 20px;
     }
 
+    /* Título centralizado */
     .header .title {
-      font-size: 28px;
+      font-size: 20px;
       color: white;
-      margin-left: 20px;
+      text-align: center;
+      flex-grow: 1;
+      margin-left: 10px;
     }
 
+    /* Botão de menu */
     .menu-btn {
       font-size: 30px;
       cursor: pointer;
@@ -59,6 +60,7 @@
       transform: scale(1.1);
     }
 
+    /* Menu lateral */
     .menu-lateral {
       height: 100%;
       width: 0;
@@ -99,19 +101,6 @@
       transition: margin-left .5s;
       padding: 20px;
       text-align: center;
-    }
-
-    .search-box {
-      margin: 20px auto;
-      max-width: 400px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
     }
 
     .catalogo {
@@ -166,38 +155,6 @@
     .card:hover a {
       background-color: #00cc44;
       color: #000;
-    }
-
-    /* SLIDER */
-    .slider-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      gap: 20px;
-      padding: 20px;
-      max-width: 100%;
-      margin: 40px auto;
-    }
-
-    .card.slide {
-      flex: 0 0 auto;
-      scroll-snap-align: center; /* Centraliza o card */
-      min-width: 200px;
-      max-width: 200px;
-      opacity: 1;
-      transform: none;
-      animation: none;
-    }
-
-    @media (max-width: 600px) {
-      .slider-container {
-        max-width: 100%;
-      }
-
-      .card.slide {
-        min-width: 50%; /* Ajusta o tamanho do card em dispositivos móveis */
-      }
     }
 
   </style>
