@@ -37,6 +37,7 @@
       margin: 0;
     }
 
+    /* Botão de menu posicionado à esquerda */
     .menu-btn {
       font-size: 30px;
       cursor: pointer;
@@ -44,6 +45,8 @@
       color: white;
       border: none;
       transition: transform 0.3s ease;
+      position: absolute;
+      left: 20px;  /* Alinha o botão à esquerda */
     }
 
     .menu-btn:hover {
@@ -293,31 +296,10 @@
       }
     }
 
-    function toggleSubmenu(id) {
-      const submenu = document.getElementById(id);
-      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+    function toggleSubmenu(menuId) {
+      const menu = document.getElementById(menuId);
+      menu.classList.toggle("active");
     }
-
-    document.getElementById("searchInput").addEventListener("input", function() {
-      const filter = this.value.toLowerCase();
-      const cards = document.querySelectorAll("#catalogo .card");
-
-      cards.forEach(card => {
-        const title = card.querySelector("a").textContent.toLowerCase();
-        card.style.display = title.includes(filter) ? "flex" : "none";
-      });
-    });
-
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-
-    function showNextSlide() {
-      slides[slideIndex].classList.remove('active');
-      slideIndex = (slideIndex + 1) % slides.length;
-      slides[slideIndex].classList.add('active');
-    }
-
-    setInterval(showNextSlide, 3000);
   </script>
 </body>
 </html>
