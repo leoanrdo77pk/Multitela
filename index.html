@@ -182,23 +182,6 @@
   transition: background-color 0.3s;
 }
 
-.slider-indicators span.active {
-  background-color: limegreen;
-}
-.slider-mask {
-  overflow: hidden;
-  padding: 0 10px; /* controle o "respiro" lateral */
-}
-
-.slider-container {
-  display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 20px 0;
-  scroll-behavior: smooth;
-}
 
 @media (max-width: 600px) {
   .slider-container {
@@ -237,7 +220,7 @@
 
     <!-- SLIDER -->
 
-      <div class="slider-mask">
+
   <div class="slider-container" id="slider">
       <div class="card slide active">
         <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
