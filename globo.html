@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Séries de Drama</title>
+  <link rel="stylesheet" href="estilos.css"> <!-- ou onde seu CSS estiver -->
+  <script src="series.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("Drama");
+
+      const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === "Drama");
+
+      seriesFiltradas.forEach(serie => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${serie.imagem}" alt="${serie.titulo}">
+          <a href="${serie.link}">${serie.titulo}</a>
+        `;
+        container.appendChild(card);
+      });
+    });
+  </script>
+  <style>
+    /* Copie o estilo flex que criamos antes aqui também */
+    #Drama {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      width: 180px;
+      text-align: center;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+    }
+    .card a {
+      display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Séries de Drama</h2>
+  <div id="Globo"></div>
+</body>
+</html>
