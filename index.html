@@ -1,188 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Novelas Online</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Slider com Menu e Capas</title>
   <style>
     body {
-      font-family: Poppins, sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #121212;
-      color: white;
+      background: #f5f5f5;
     }
 
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background-color: #1a1a1a;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 1001;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-      color: limegreen;
-      text-decoration: none;
+      background: #333;
+      color: white;
+      padding: 10px 15px;
+      position: relative;
     }
 
     .menu-btn {
-      font-size: 30px;
-      cursor: pointer;
-      background-color: transparent;
-      color: white;
+      font-size: 24px;
+      background: none;
       border: none;
-      transition: transform 0.3s ease;
-    }
-
-    .menu-btn:hover {
-      transform: scale(1.1);
+      color: white;
+      cursor: pointer;
     }
 
     .menu-lateral {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background-color: #111;
-      overflow-y: auto;
-      transition: 0.5s;
-      padding-top: 60px;
-      z-index: 1000;
+      display: none;
+      background: #444;
+      padding: 10px;
     }
 
     .menu-lateral a {
-      padding: 10px 15px;
-      text-decoration: none;
-      font-size: 15px;
-      color: white;
       display: block;
-      transition: 0.3s;
-    }
-
-    .menu-lateral a:hover {
-      background-color: limegreen;
+      color: white;
+      text-decoration: none;
+      margin: 5px 0;
+      padding-left: 10px;
     }
 
     .submenu {
       display: none;
-      background-color: #333;
-      padding-left: 20px;
+      padding-left: 15px;
     }
 
-    .menu-lateral .active .submenu {
-      display: block;
+    .slider-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 15px;
+      padding: 15px;
+      scrollbar-width: none;
+      background: #fff;
     }
 
-    .content {
-      margin-top: 80px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .search-box {
-      margin: 20px auto;
-      max-width: 400px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-    }
-
-    .catalogo {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      max-width: 1000px;
-      margin: 0 auto;
-      gap: 20px;
-      padding-bottom: 40px;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .slider-container::-webkit-scrollbar {
+      display: none;
     }
 
     .card {
-      background-color: #1f1f1f;
-      border-radius: 10px;
+      flex: 0 0 auto;
+      width: 200px;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.7);
-      transition: transform 0.2s;
-      display: flex;
-      flex-direction: column;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.5s ease forwards;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      text-align: center;
     }
 
     .card img {
       width: 100%;
-      aspect-ratio: 3 / 4;
+      height: 300px;
       object-fit: cover;
+      display: block;
     }
 
     .card a {
       display: block;
       padding: 10px;
-      color: white;
       text-decoration: none;
+      color: #333;
       font-weight: bold;
-      background-color: limegreen;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      background: #f0f0f0;
     }
 
-    .card:hover a {
-      background-color: #00cc44;
-      color: #000;
-    }
-
-    /* SLIDER */
-    .slider-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      gap: 20px;
-      padding: 20px;
-      max-width: 100%;
-      margin: 40px auto;
-    }
-
-    .card.slide {
-      flex: 0 0 auto;
-      scroll-snap-align: center;
-      min-width: 200px;
-      max-width: 200px;
-      opacity: 1;
-      transform: none;
-      animation: none;
-    }
-
-    @media (max-width: 600px) {
-      .card.slide {
-        min-width: 50%;
-      }
+    .card a:hover {
+      background: #ddd;
     }
   </style>
 </head>
@@ -190,79 +94,73 @@
 
   <header>
     <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
-    <a href="index.html" class="logo">Filmes e Séries</a>
+    <nav id="menuLateral" class="menu-lateral">
+      <a href="index.html">Home</a>
+      <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
+      <div id="filmes" class="submenu">
+        <a href="filmes.html">Todos</a>
+        <a href="#">Ação</a>
+        <a href="#">Comédia</a>
+        <a href="#">Drama</a>
+      </div>
+      <a href="#" onclick="toggleSubmenu('series')">Séries</a>
+      <div id="series" class="submenu">
+        <a href="series.html">Todos</a>
+        <a href="#">Justified</a>
+        <a href="#">Breaking Bad</a>
+      </div>
+    </nav>
   </header>
 
-  <div id="menuLateral" class="menu-lateral">
-    <a href="index.html">Home</a>
-    <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
-    <div id="filmes" class="submenu">
-      <a href="filmes.html">Todos</a>
-      <a href="#">Ação</a>
-      <a href="#">Comédia</a>
-      <a href="#">Drama</a>
+  <div class="slider-container" id="slider">
+    <div class="card">
+      <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
+      <a href="#">Game of Thrones</a>
     </div>
-
-    <a href="#" onclick="toggleSubmenu('series')">Séries</a>
-    <div id="series" class="submenu">
-      <a href="series.html">Todos</a>
-      <a href="#">Justified</a>
+    <div class="card">
+      <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
+      <a href="#">The Big Bang Theory</a>
+    </div>
+    <div class="card">
+      <img src="https://m.media-amazon.com/images/I/91gQczD+f3L._AC_UF894,1000_QL80_.jpg" alt="Breaking Bad">
       <a href="#">Breaking Bad</a>
     </div>
-  </div>
-
-  <div class="content">
-    <h1>Em destaque</h1>
-
-    <div class="slider-container">
-      <div class="card slide">
-        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
-        <a href="/justified/assistir.html">Justified</a>
-      </div>
-      <div class="card slide">
-        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
-        <a href="#">Breaking Bad</a>
-      </div>
-      <div class="card slide">
-        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
-        <a href="#">The Walking Dead</a>
-      </div>
+    <div class="card">
+      <img src="https://m.media-amazon.com/images/I/71vZkEDlGzL._AC_UF894,1000_QL80_.jpg" alt="Justified">
+      <a href="#">Justified</a>
     </div>
-
-    <p style="text-align: center; font-size: 18px; color: #ccc;">
-      Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
-    </p>
-
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
+    <div class="card">
+      <img src="https://m.media-amazon.com/images/I/81Kc8NrrKSL._AC_UF894,1000_QL80_.jpg" alt="Peaky Blinders">
+      <a href="#">Peaky Blinders</a>
     </div>
-
-    <div class="catalogo">
-      <div class="card">
-        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
-        <a href="/justified/assistir.html">Justified</a>
-      </div>
-      <div class="card">
-        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
-        <a href="#">Breaking Bad</a>
-      </div>
-      <div class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
-        <a href="#">The Walking Dead</a>
-      </div>
+    <div class="card">
+      <img src="https://m.media-amazon.com/images/I/91tX8FRC9RL._AC_UF894,1000_QL80_.jpg" alt="Friends">
+      <a href="#">Friends</a>
     </div>
   </div>
 
   <script>
     function toggleMenu() {
-      const menu = document.getElementById('menuLateral');
-      menu.style.width = (menu.style.width === '250px') ? '0' : '250px';
+      const menu = document.getElementById("menuLateral");
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
     }
 
     function toggleSubmenu(id) {
       const submenu = document.getElementById(id);
-      submenu.classList.toggle('active');
+      submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
     }
+
+    // Auto scroll do slider
+    const slider = document.getElementById("slider");
+    function autoScroll() {
+      const scrollAmount = 220;
+      if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth) {
+        slider.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        slider.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      }
+    }
+    setInterval(autoScroll, 3000);
   </script>
 
 </body>
