@@ -3,19 +3,19 @@ const seriesNovas = [
     titulo: "Justified",
     imagem: "https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg",
     link: "/justified/assistir.html",
-    categoria: "Drama"
+    categoria: "Globo"
   },
   {
     titulo: "Breaking Bad",
     imagem: "https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png",
     link: "#",
-    categoria: "Drama"
+    categoria: "Globo"
   },
   {
     titulo: "The Walking Dead",
     imagem: "https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg",
     link: "#",
-    categoria: "Ação"
+    categoria: "Globo"
   },
   {
     titulo: "Game of Thrones",
