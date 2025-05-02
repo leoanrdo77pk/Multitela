@@ -311,87 +311,94 @@
     </div>
   </div>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menuLateral");
-      const content = document.querySelector(".content");
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("menuLateral");
+    const content = document.querySelector(".content");
 
-      if (menu.style.width === "250px") {
-        menu.style.width = "0";
-        content.style.marginLeft = "0";
-      } else {
-        menu.style.width = "250px";
-        content.style.marginLeft = "250px";
-      }
-    }
+    if (menu.style.width === "250px") {
+      menu.style.width = "0";
+      content.style.marginLeft = "0";
 
-    function toggleSubmenu(id) {
-      const submenu = document.getElementById(id);
-      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
-    }
+      // Exibe novamente os nomes e ícones
+      const textos = menu.querySelectorAll('.menu-text');
+      textos.forEach(texto => texto.style.display = "inline");
 
-    document.getElementById("searchInput").addEventListener("input", function() {
-      const filter = this.value.toLowerCase();
-      const cards = document.querySelectorAll("#catalogo .card");
-
-      cards.forEach(card => {
-        const title = card.querySelector("a").textContent.toLowerCase();
-        card.style.display = title.includes(filter) ? "flex" : "none";
-      });
-    });
-
-let slideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('sliderDots');
-
-// Criação das bolinhas
-function createDots() {
-  slides.forEach((_, index) => {
-    const dot = document.createElement('span');
-    dot.classList.add('slider-dot');
-    dot.addEventListener('click', () => goToSlide(index));
-    dotsContainer.appendChild(dot);
-  });
-}
-
-function updateDots() {
-  const dots = document.querySelectorAll('.slider-dot');
-  dots.forEach((dot, index) => {
-    if (index === slideIndex) {
-      dot.classList.add('active');
     } else {
-      dot.classList.remove('active');
+      menu.style.width = "250px";
+      content.style.marginLeft = "250px";
+
+      // Oculta os nomes e ícones ao abrir o menu
+      const textos = menu.querySelectorAll('.menu-text');
+      textos.forEach(texto => texto.style.display = "none");
     }
+  }
+
+  function toggleSubmenu(id) {
+    const submenu = document.getElementById(id);
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  }
+
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const filter = this.value.toLowerCase();
+    const cards = document.querySelectorAll("#catalogo .card");
+
+    cards.forEach(card => {
+      const title = card.querySelector("a").textContent.toLowerCase();
+      card.style.display = title.includes(filter) ? "flex" : "none";
+    });
   });
-}
 
-function showNextSlide() {
-  slides[slideIndex].classList.remove('active');
-  slideIndex = (slideIndex + 1) % slides.length;
-  slides[slideIndex].classList.add('active');
-  
+  let slideIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('sliderDots');
+
+  // Criação das bolinhas
+  function createDots() {
+    slides.forEach((_, index) => {
+      const dot = document.createElement('span');
+      dot.classList.add('slider-dot');
+      dot.addEventListener('click', () => goToSlide(index));
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function updateDots() {
+    const dots = document.querySelectorAll('.slider-dot');
+    dots.forEach((dot, index) => {
+      if (index === slideIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  function showNextSlide() {
+    slides[slideIndex].classList.remove('active');
+    slideIndex = (slideIndex + 1) % slides.length;
+    slides[slideIndex].classList.add('active');
+
+    updateDots();
+
+    // Centralizar slide ativo
+    const activeCard = slides[slideIndex];
+    activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+  }
+
+  function goToSlide(index) {
+    slides[slideIndex].classList.remove('active');
+    slideIndex = index;
+    slides[slideIndex].classList.add('active');
+    updateDots();
+    const activeCard = slides[slideIndex];
+    activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+  }
+
+  createDots();
   updateDots();
+  setInterval(showNextSlide, 5000);
+</script>
 
-  // Garantir que o card ativo esteja centralizado
-  const activeCard = slides[slideIndex];
-  activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-}
-
-function goToSlide(index) {
-  slides[slideIndex].classList.remove('active');
-  slideIndex = index;
-  slides[slideIndex].classList.add('active');
-  updateDots();
-  const activeCard = slides[slideIndex];
-  activeCard.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-}
-
-createDots(); // Cria as bolinhas
-updateDots(); // Atualiza o estado inicial das bolinhas
-
-setInterval(showNextSlide, 5000); // Troca a cada 5 segundos
-
-
-  </script>
 </body>
 </html>
