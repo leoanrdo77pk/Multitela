@@ -11,7 +11,7 @@
       padding: 0;
       background-color: #121212;
       color: white;
-      overflow-x: hidden;
+      overflow-x: hidden; /* impede rolagem horizontal */
     }
 
     h1 {
@@ -20,37 +20,36 @@
     }
 
     .menu-btn {
-      font-size: 30px;
-      cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      border: none;
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      padding: 10px;
-      border-radius: 5px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
+  font-size: 30px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente */
+  color: white;
+  border: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  padding: 10px; /* Espaço interno para maior área clicável */
+  border-radius: 5px; /* Bordas arredondadas */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Suaviza a transição */
+}
 
-    .menu-btn:hover {
-      transform: scale(1.1);
-      background-color: rgba(0, 0, 0, 0.9);
-    }
-
-    .menu-lateral {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      background-color: #111;
-      overflow-y: auto;
-      transition: 0.5s;
-      padding-top: 60px;
-      z-index: 999;
-    }
+.menu-btn:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.9); /* Aumenta a opacidade do fundo no hover */
+}
+.menu-lateral {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 60px; /* Ajusta o menu para começar um pouco abaixo */
+  left: 0;
+  background-color: #111;
+  overflow-y: auto;
+  transition: 0.5s;
+  padding-top: 60px;
+  z-index: 999;
+}
 
     .menu-lateral a {
       padding: 10px 15px;
@@ -75,7 +74,7 @@
       display: block;
     }
 
-    .content {
+ .content {
       transition: margin-left .5s;
       padding: 20px;
       text-align: center;
@@ -96,11 +95,18 @@
 
     .catalogo {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      max-width: 1280px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 4fr));
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 20px 10px 40px;
+      gap: 20px;
+      padding-bottom: 40px;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .card {
@@ -141,86 +147,111 @@
       color: #000;
     }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
 
-    .slider-container {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      gap: 20px;
-      padding: 20px;
-      max-width: 100%;
-      margin: 40px auto;
-      scrollbar-width: none;
-    }
 
-    .slider-container::-webkit-scrollbar {
-      display: none;
-    }
 
-    .card.slide {
-      flex: 0 0 auto;
-      scroll-snap-align: center;
-      min-width: 200px;
-      max-width: 200px;
-      opacity: 1;
-      transform: none;
-      animation: none;
-    }
+    
+/* SLIDER */
+.slider-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%;
+  margin: 40px auto;
+  scrollbar-width: none; /* Firefox */
+}
 
-    .slider-dots {
-      text-align: center;
-      margin-top: 10px;
-    }
+.slider-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari e Opera */
+}
 
-    .slider-dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 5px;
-      background-color: #bbb;
-      border-radius: 50%;
-      transition: background-color 0.3s ease;
-      cursor: pointer;
-    }
+.card.slide {
+  flex: 0 0 auto;
+  scroll-snap-align: center; /* Centraliza o card */
+  min-width: 200px;
+  max-width: 200px;
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
 
-    .slider-dot.active {
-      background-color: limegreen;
-    }
 
+    /* Indicadores de bolinhas */
+.slider-dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.slider-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.slider-dot.active {
+  background-color: limegreen; /* Cor do ponto ativo */
+}
+
+
+
+#novasSeries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  width: 180px;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+    
     h2 {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 24px;
-    }
+  text-align: center;
+  margin-top: 40px;
+  font-size: 24px;
+}
+@media (max-width: 600px) {
+  .slider-container {
+    max-width: 100%;
+  }
 
-    @media (max-width: 1000px) {
-      .catalogo {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .catalogo {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 500px) {
-      .catalogo {
-        grid-template-columns: repeat(1, 1fr);
-      }
-
-      .card.slide {
-        min-width: 80%;
-      }
-    }
+  .card.slide {
+    min-width: 50%; /* Ajusta o tamanho do card em dispositivos móveis */
+  }
+}
   </style>
 </head>
 <body>
@@ -235,6 +266,7 @@
       <a href="#">Comédia</a>
       <a href="#">Drama</a>
     </div>
+
     <a href="#" onclick="toggleSubmenu('series')">Séries</a>
     <div id="series" class="submenu">
       <a href="series.html">Todos</a>
@@ -243,11 +275,13 @@
     </div>
   </div>
 
+
   <div class="content">
     <h1>Em destaque</h1>
+
+    <!-- SLIDER -->
     <div class="slider-container" id="slider">
-      <!-- Cards do slider -->
-      <div class="card slide">
+      <div class="card slide active">
         <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
         <a href="/justified/assistir.html">Justified</a>
       </div>
@@ -263,43 +297,164 @@
         <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
         <a href="#">Game of Thrones</a>
       </div>
+      <div class="card slide">
+        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
+        <a href="#">The Big Bang Theory</a>
+      </div>
+      <div class="card slide active">
+        <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
+        <a href="/justified/assistir.html">Justified</a>
+      </div>
+      <div class="card slide">
+        <img src="https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png" alt="Breaking Bad">
+        <a href="#">Breaking Bad</a>
+      </div>
+      <div class="card slide">
+        <img src="https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg" alt="The Walking Dead">
+        <a href="#">The Walking Dead</a>
+      </div>
+      <div class="card slide">
+        <img src="https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Game of Thrones">
+        <a href="#">Game of Thrones</a>
+      </div>
+      <div class="card slide">
+        <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p185554_b_v8_bk.jpg" alt="The Big Bang Theory">
+        <a href="#">The Big Bang Theory</a>
+      </div>
+            </div>
+            <!-- Indicadores de bolinhas -->
+<div class="slider-dots" id="sliderDots"></div>
     </div>
 
-    <h2>Catálogo</h2>
-    <div class="catalogo">
-      <!-- Cards do catálogo -->
-      <div class="card">
-        <img src="https://placehold.co/300x400" alt="Filme 1">
-        <a href="#">Filme 1</a>
-      </div>
-      <div class="card">
-        <img src="https://placehold.co/300x400" alt="Filme 2">
-        <a href="#">Filme 2</a>
-      </div>
-      <div class="card">
-        <img src="https://placehold.co/300x400" alt="Filme 3">
-        <a href="#">Filme 3</a>
-      </div>
-      <div class="card">
-        <img src="https://placehold.co/300x400" alt="Filme 4">
-        <a href="#">Filme 4</a>
-      </div>
-      <div class="card">
-        <img src="https://placehold.co/300x400" alt="Filme 5">
-        <a href="#">Filme 5</a>
-      </div>
+
+    <p style="text-align: center; font-size: 18px; margin-top: -10px; color: #ccc;">
+      Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
+    </p>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
     </div>
-  </div>
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menuLateral");
-      menu.style.width = menu.style.width === "250px" ? "0" : "250px";
-    }
+   <h2>Recentes</h2>
+<div class="catalogo" id="catalogo">
+</div>
 
-    function toggleSubmenu(id) {
-      document.getElementById(id).classList.toggle("active");
+</div>
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("menuLateral");
+    const content = document.querySelector(".content");
+
+    if (menu.style.width === "250px") {
+      menu.style.width = "0";
+      content.style.marginLeft = "0";
+
+      // Exibe novamente os nomes e ícones
+      const textos = menu.querySelectorAll('.menu-text');
+      textos.forEach(texto => texto.style.display = "inline");
+
+    } else {
+      menu.style.width = "250px";
+      content.style.marginLeft = "250px";
+
+      // Oculta os nomes e ícones ao abrir o menu
+      const textos = menu.querySelectorAll('.menu-text');
+      textos.forEach(texto => texto.style.display = "none");
     }
-  </script>
+  }
+
+  function toggleSubmenu(id) {
+    const submenu = document.getElementById(id);
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  }
+
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const filter = this.value.toLowerCase();
+    const cards = document.querySelectorAll("#catalogo .card");
+
+    cards.forEach(card => {
+      const title = card.querySelector("a").textContent.toLowerCase();
+      card.style.display = title.includes(filter) ? "flex" : "none";
+    });
+  });
+
+ const slider = document.getElementById('slider');
+  const slides = slider.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('sliderDots');
+  let currentIndex = 0;
+
+  // Cria bolinhas
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.classList.add('slider-dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => scrollToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  // Autoplay
+  function autoSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    scrollToSlide(currentIndex);
+  }
+
+  function scrollToSlide(index) {
+    const slide = slides[index];
+    if (slide) {
+      slider.scrollTo({
+        left: slide.offsetLeft - slider.offsetLeft,
+        behavior: 'smooth'
+      });
+
+      // Atualiza bolinhas
+      document.querySelectorAll('.slider-dot').forEach(dot => dot.classList.remove('active'));
+      if (dotsContainer.children[index]) {
+        dotsContainer.children[index].classList.add('active');
+      }
+    }
+  }
+
+  // Inicia autoplay
+  setInterval(autoSlide, 3000); // muda a cada 3 segundos
+
+
+</script>
+
+
+  <script src="series.js"></script>
+<script>
+  const catalogo = document.getElementById("catalogo");
+
+  seriesNovas.forEach(serie => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${serie.imagem}" alt="${serie.titulo}">
+      <a href="${serie.link}">${serie.titulo}</a>
+    `;
+    catalogo.appendChild(card);
+  });
+</script>
+<script>
+  function filterSeriesByCategory(categoria) {
+    const container = document.getElementById('novasSeries');
+    container.innerHTML = ''; // Limpa a área onde as séries serão exibidas
+
+    // Filtra as séries pela categoria selecionada
+    const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === categoria);
+
+    // Exibe as séries filtradas
+    seriesFiltradas.forEach(serie => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${serie.imagem}" alt="${serie.titulo}">
+        <a href="${serie.link}">${serie.titulo}</a>
+      `;
+      container.appendChild(card);
+    });
+  }
+</script>
+
 </body>
 </html>
