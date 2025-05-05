@@ -232,12 +232,15 @@
 }
 
 .card a {
-  display: block;
-  padding: 10px;
-  color: #333;
-  text-decoration: none;
-  font-size: 12px;
-  font-weight: bold;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 20px;
+  max-width: 100%;
+  margin: 40px auto;
+  scrollbar-width: none; /* Firefox */
 }
     
     h2 {
