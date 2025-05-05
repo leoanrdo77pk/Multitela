@@ -204,26 +204,21 @@
 
 
 #novasSeries {
-   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  padding: 20px;
-  max-width: 100%;
-  margin: 40px auto;
-  scrollbar-width: none; /* Firefox */
+  justify-content: center;
+  padding: 50px;
 }
 
-
 .card {
-  width: 180px;
-  text-align: center;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  flex: 0 0 auto;
+  scroll-snap-align: center; /* Centraliza o card */
+  min-width: 200px;
+  max-width: 200px;
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 
 .card:hover {
