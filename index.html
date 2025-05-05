@@ -109,7 +109,44 @@
       }
     }
 
+    .card {
+      background-color: #1f1f1f;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.5s ease forwards;
+    }
 
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+    }
+
+    .card a {
+      display: block;
+      padding: 10px;
+      color: white;
+      text-decoration: none;
+      text-size: 11px;
+      font-weight: bold;
+      background-color: limegreen;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .card:hover a {
+      background-color: #00cc44;
+      color: #000;
+    }
 
 
 
@@ -196,9 +233,10 @@
 
 .card a {
   display: block;
-  padding: 10px;
+  padding: 20px;
   color: #333;
   text-decoration: none;
+  font-size: 11px;
   font-weight: bold;
 }
     
