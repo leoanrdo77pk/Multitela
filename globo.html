@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Categoria: Globo</title>
+  <title>Filmes e Séries Online</title>
   <style>
     body {
       font-family: Poppins, sans-serif;
@@ -11,7 +11,7 @@
       padding: 0;
       background-color: #121212;
       color: white;
-      overflow-x: hidden;
+      overflow-x: hidden; /* impede rolagem horizontal */
     }
 
     h1 {
@@ -20,37 +20,36 @@
     }
 
     .menu-btn {
-      font-size: 30px;
-      cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      border: none;
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
-      padding: 10px;
-      border-radius: 5px;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
+  font-size: 30px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente */
+  color: white;
+  border: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  padding: 10px; /* Espaço interno para maior área clicável */
+  border-radius: 5px; /* Bordas arredondadas */
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Suaviza a transição */
+}
 
-    .menu-btn:hover {
-      transform: scale(1.1);
-      background-color: rgba(0, 0, 0, 0.9);
-    }
-
-    .menu-lateral {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      background-color: #111;
-      overflow-y: auto;
-      transition: 0.5s;
-      padding-top: 60px;
-      z-index: 999;
-    }
+.menu-btn:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.9); /* Aumenta a opacidade do fundo no hover */
+}
+.menu-lateral {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 60px; /* Ajusta o menu para começar um pouco abaixo */
+  left: 0;
+  background-color: #111;
+  overflow-y: auto;
+  transition: 0.5s;
+  padding-top: 60px;
+  z-index: 999;
+}
 
     .menu-lateral a {
       padding: 10px 15px;
@@ -75,11 +74,42 @@
       display: block;
     }
 
-    .content {
+ .content {
       transition: margin-left .5s;
       padding: 20px;
       text-align: center;
     }
+
+    .search-box {
+      margin: 20px auto;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+    
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #catalogo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      max-width: 1000px;
+      margin: 0 auto;
+      gap: 20px;
+      padding: 40px 20px;
+    }
+
+    
 
     .card {
       background-color: #1f1f1f;
@@ -109,6 +139,7 @@
       padding: 10px;
       color: white;
       text-decoration: none;
+      text-size: 11px;
       font-weight: bold;
       background-color: limegreen;
       transition: background-color 0.3s ease, color 0.3s ease;
@@ -119,25 +150,11 @@
       color: #000;
     }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    #Globo {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      max-width: 1000px;
-      margin: 0 auto;
-      gap: 20px;
-      padding: 40px 20px;
-    }
 
 
 
-    /* SLIDER */
+    
+/* SLIDER */
 .slider-container {
   display: flex;
   overflow-x: auto;
@@ -185,19 +202,66 @@
 .slider-dot.active {
   background-color: limegreen; /* Cor do ponto ativo */
 }
-    @media (max-width: 600px) {
-      #Globo {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        padding: 20px 10px;
-      }
-    }
+
+
+
+#novasSeries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  width: 180px;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card a {
+  display: block;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+    
+    h2 {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 24px;
+}
+@media (max-width: 600px) {
+  .slider-container {
+    max-width: 100%;
+  }
+
+  .card.slide {
+    min-width: 50%; /* Ajusta o tamanho do card em dispositivos móveis */
+  }
+}
   </style>
 </head>
 <body>
   <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
 
   <div id="menuLateral" class="menu-lateral">
-    <a href="https://multitela.vercel.app/">Home</a>
+    <a href="index.html">Home</a>
     <a href="#" onclick="toggleSubmenu('filmes')">Filmes</a>
     <div id="filmes" class="submenu">
       <a href="filmes.html">Todos</a>
@@ -205,6 +269,7 @@
       <a href="#">Comédia</a>
       <a href="#">Drama</a>
     </div>
+
     <a href="#" onclick="toggleSubmenu('series')">Séries</a>
     <div id="series" class="submenu">
       <a href="series.html">Todos</a>
@@ -213,7 +278,8 @@
     </div>
   </div>
 
-    <div class="content">
+
+  <div class="content">
     <h1>Em destaque</h1>
 
     <!-- SLIDER -->
@@ -264,13 +330,21 @@
     </div>
 
 
-  <div class="content">
-    <h1>Categoria: Globo</h1>
-    <div id="Globo"></div>
-  </div>
+    <p style="text-align: center; font-size: 18px; margin-top: -10px; color: #ccc;">
+      Assista seus conteúdos favoritos em um só lugar, grátis e sem complicação.
+    </p>
 
-  <script>
-    function toggleMenu() {
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
+    </div>
+
+   <h2>Recentes</h2>
+<div class="catalogo" id="catalogo">
+</div>
+
+</div>
+<script>
+  function toggleMenu() {
     const menu = document.getElementById("menuLateral");
     const content = document.querySelector(".content");
 
@@ -296,32 +370,18 @@
     const submenu = document.getElementById(id);
     submenu.style.display = submenu.style.display === "block" ? "none" : "block";
   }
-  </script>
 
-  <!-- Carrega os dados das séries -->
-  <script src="series.js"></script>
+  document.getElementById("searchInput").addEventListener("input", function () {
+    const filter = this.value.toLowerCase();
+    const cards = document.querySelectorAll("#catalogo .card");
 
-  <!-- Gera os cards da categoria Globo -->
-  <script>
-    const container = document.getElementById('Globo');
-
-    const seriesGlobo = seriesNovas.filter(serie => serie.categoria === "Globo");
-
-    seriesGlobo.forEach(serie => {
-      const card = document.createElement('div');
-      card.classList.add('card');
-
-      card.innerHTML = `
-        <img src="${serie.imagem}" alt="${serie.titulo}">
-        <a href="${serie.link}">${serie.titulo}</a>
-      `;
-
-      container.appendChild(card);
+    cards.forEach(card => {
+      const title = card.querySelector("a").textContent.toLowerCase();
+      card.style.display = title.includes(filter) ? "flex" : "none";
     });
+  });
 
-
-
-     const slider = document.getElementById('slider');
+ const slider = document.getElementById('slider');
   const slides = slider.querySelectorAll('.slide');
   const dotsContainer = document.getElementById('sliderDots');
   let currentIndex = 0;
@@ -359,6 +419,45 @@
 
   // Inicia autoplay
   setInterval(autoSlide, 3000); // muda a cada 3 segundos
-  </script>
+
+
+</script>
+
+
+  <script src="series.js"></script>
+<script>
+  const catalogo = document.getElementById("catalogo");
+
+  seriesNovas.forEach(serie => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${serie.imagem}" alt="${serie.titulo}">
+      <a href="${serie.link}">${serie.titulo}</a>
+    `;
+    catalogo.appendChild(card);
+  });
+</script>
+<script>
+  function filterSeriesByCategory(categoria) {
+    const container = document.getElementById('novasSeries');
+    container.innerHTML = ''; // Limpa a área onde as séries serão exibidas
+
+    // Filtra as séries pela categoria selecionada
+    const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === categoria);
+
+    // Exibe as séries filtradas
+    seriesFiltradas.forEach(serie => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${serie.imagem}" alt="${serie.titulo}">
+        <a href="${serie.link}">${serie.titulo}</a>
+      `;
+      container.appendChild(card);
+    });
+  }
+</script>
+
 </body>
 </html>
