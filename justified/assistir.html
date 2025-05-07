@@ -57,11 +57,6 @@
       cursor: pointer;
     }
 
-    video {
-      width: 100%;
-      border-radius: 10px;
-    }
-
     .preload-image {
       position: absolute;
       top: 0;
@@ -71,6 +66,15 @@
       background: url('https://example.com/preloader.gif') center center / cover no-repeat;
       border-radius: 10px;
       display: block;
+    }
+
+    .thumbnail-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: url('https://example.com/thumbnail.jpg') center center / cover no-repeat;
+      display: block;
+      cursor: pointer;
     }
 
     .imdb-info {
@@ -195,7 +199,7 @@
 
   <div class="player" id="playerBox">
     <div class="preload-image" id="preloadImage"></div>
-    <video id="videoPlayer" controls autoplay></video>
+    <div class="thumbnail-image" id="thumbnailImage" onclick="redirectToPlayer()"></div>
   </div>
 
   <div id="conteudo"></div>
@@ -203,8 +207,8 @@
   <script>
     const conteudo = document.getElementById('conteudo');
     const playerBox = document.getElementById('playerBox');
-    const videoPlayer = document.getElementById('videoPlayer');
     const preloadImage = document.getElementById('preloadImage');
+    const thumbnailImage = document.getElementById('thumbnailImage');
     let selectedVideoUrl = "";
 
     let firstVideoSet = false;
@@ -224,38 +228,20 @@
         btn.innerText = ep.titulo;
         btn.onclick = () => {
           selectedVideoUrl = ep.url;
-          preloadImage.style.display = 'block'; // Mostrar a imagem do preloader
-          videoPlayer.load();
-          videoPlayer.play();
+          thumbnailImage.style.backgroundImage = `url('https://example.com/thumbnail.jpg')`; // Substitua pela URL da imagem do episódio
           playerBox.style.display = 'block';
-          videoPlayer.oncanplay = () => {
-            preloadImage.style.display = 'none'; // Esconder o preloader quando o vídeo estiver pronto
-          };
         };
-
-        lista.appendChild(btn);
-
-        if (!firstVideoSet) {
-          selectedVideoUrl = ep.url;
-          videoPlayer.src = selectedVideoUrl;
-          playerBox.style.display = 'block';
-          videoPlayer.oncanplay = () => {
-            preloadImage.style.display = 'none';
-          };
-          firstVideoSet = true;
-        }
       });
 
       div.appendChild(lista);
       conteudo.appendChild(div);
     });
 
-    // Abertura do player externo ao clicar no player
-    videoPlayer.onclick = () => {
+    function redirectToPlayer() {
       if (selectedVideoUrl) {
         window.open(selectedVideoUrl, '_blank');
       }
-    };
+    }
   </script>
 </body>
 </html>
