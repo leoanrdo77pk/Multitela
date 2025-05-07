@@ -1,158 +1,261 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Assistir Justified</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Justificado - Temporadas</title>
+  <script src="links.js"></script>
   <style>
     body {
+      background: #121212;
+      color: #fff;
       font-family: Arial, sans-serif;
-      background-color: #1e1e1e;
-      color: white;
+      padding: 20px;
       margin: 0;
-      padding: 0;
     }
 
-    .capa-serie {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-      background-color: #2c2c2c;
-      flex-wrap: wrap;
-    }
-
-    .capa-serie img {
-      width: 250px;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-
-    .info-serie {
-      max-width: 600px;
-    }
-
-    .info-serie h1 {
-      font-size: 2.5em;
+    h1 {
+      text-align: center;
       margin-bottom: 10px;
+      font-size: 2rem;
     }
 
-    .info-serie p {
-      font-size: 1.2em;
-      margin: 5px 0;
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: #000;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
     }
 
-    .info-serie a {
-      color: #00ff00;
-      text-decoration: underline;
+    .home-btn:hover {
+      background-color: limegreen;
     }
 
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    .home-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
+    .player {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      position: relative;
+      cursor: pointer;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .preload-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://m.media-amazon.com/images/S/pv-target-images/3d28d68d84017c03cb6efa2c7f2f6a1fb09dabd036f34faf5dbe8cb14d342286.jpg') center center / cover no-repeat;
+      border-radius: 10px;
+      display: none;
+    }
+
+    .imdb-info {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
       gap: 20px;
-      padding: 20px;
+      margin: 40px auto;
+      max-width: 800px;
+    }
+
+    .imdb-info img {
+      width: 200px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .imdb-info .details {
+      flex: 1;
+    }
+
+    .imdb-info .details h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+
+    .temporada {
+      margin-bottom: 40px;
+    }
+
+    .episodios {
+      display: block;
+      margin-top: 20px;
     }
 
     .episodio {
-      position: relative;
+      background: #1e1e1e;
+      padding: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      margin-bottom: 15px;
+      text-align: center;
+      color: #fff;
+      transition: background 0.2s ease;
     }
 
-    .episodio img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
+    .episodio:hover {
+      background: #333;
     }
 
-    .episodio:hover img {
-      transform: scale(1.1);
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .home-btn {
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+      }
+
+      .home-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .imdb-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .imdb-info img {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .imdb-info .details {
+        width: 100%;
+      }
     }
 
-    .play-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 50px;
-      color: rgba(0, 255, 0, 0.7);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
+    @media (max-width: 480px) {
+      .episodio {
+        font-size: 0.9rem;
+        padding: 8px;
+      }
 
-    .episodio:hover .play-icon {
-      opacity: 1;
-    }
+      .imdb-info .details h2 {
+        font-size: 1.2rem;
+      }
 
-    a {
-      text-decoration: none;
+      .player {
+        margin-bottom: 20px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Capa da série com imagem ao lado das infos -->
-  <div class="capa-serie">
-    <img id="poster-serie" src="" alt="Capa da Série">
-    <div class="info-serie">
-      <h1 id="titulo-serie">Justified</h1>
-      <p id="genero-serie">Gênero: Crime, Drama, Faroeste</p>
-      <p id="sinopse-serie">Sinopse: O U.S. Marshal Raylan Givens é transferido de Miami para sua terra natal, onde enfrenta criminosos antigos e novos.</p>
-      <a id="link-imdb" href="https://www.imdb.com/title/tt1486217/" target="_blank">Veja no IMDb</a>
+  <a href="https://multitela-leonardo-s-projects-465185f8.vercel.app/" class="home-btn" title="Página Inicial" aria-label="Ir para a página inicial">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+      <path d="M280.37 148.26L96 300.11V464a16 16 0 0016 16l112-.3a16 16 0 0016-15.7V368a16 16 0 0116-16h64a16 16 0 0116 16v96a16 16 0 0016 16l112 .3a16 16 0 0016-16V300L295.67 148.26a12.19 12.19 0 00-15.3 0zM571.6 251.47L488 182.6V44a12 12 0 00-12-12h-56a12 12 0 00-12 12v72.61L318.47 43a48 48 0 00-61 0L4.34 251.47a12 12 0 00-1.6 16.9l25.5 31a12 12 0 0016.9 1.6L64 270.69V464a48 48 0 0048 48h352a48 48 0 0048-48V270.7l18.9 15.3a12 12 0 0016.9-1.6l25.5-31a12 12 0 00-1.7-16.93z"/>
+    </svg>
+  </a>
+
+  <h1 style="text-align: center; color: green;">
+  <strong>Justificado - Temporadas</strong> 
+</h1>
+
+  <div class="imdb-info">
+    <img src="https://images.justwatch.com/poster/305418324/s332/temporada-1" alt="Capa de Justified">
+    <div class="details">
+      <h2>Justificado (2010–2015)</h2>
+      <p><strong>Nota IMDb:</strong> <span style="color: gold;">★</span> 8.6/10</p>
+      <p><strong>Gêneros:</strong> Crime, Drama, Faroeste</p>
+      <p><strong>Sinopse:</strong> O Marechal dos EUA Raylan Givens aplica sua própria marca de justiça em sua cidade natal, enfrentando criminosos e desafios pessoais.</p>
+      <p><a href="https://www.imdb.com/title/tt1489428/" target="_blank" style="color: #00bcd4;">Ver no IMDb</a></p>
     </div>
   </div>
 
-  <h2 style="text-align: center; padding: 20px 0;">Episódios da Temporada 1</h2>
-
-  <div class="container" id="episodios-container">
-    <!-- Episódios serão inseridos aqui -->
+  <div class="player" id="playerBox">
+    <div class="preload-image" id="preloadImage"></div>
+    <video id="videoPlayer" controls autoplay></video>
   </div>
 
-  <script src="links.js"></script>
+  <div id="conteudo"></div>
+
   <script>
-    // Atualiza as informações da série
-    document.getElementById('poster-serie').src = serie.poster;
-    document.getElementById('titulo-serie').textContent = serie.titulo;
-    document.getElementById('genero-serie').textContent = `Gênero: ${serie.genero}`;
-    document.getElementById('sinopse-serie').textContent = `Sinopse: ${serie.sinopse}`;
-    document.getElementById('link-imdb').href = serie.imdb;
+    const conteudo = document.getElementById('conteudo');
+    const playerBox = document.getElementById('playerBox');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const preloadImage = document.getElementById('preloadImage');
+    let selectedVideoUrl = "";
 
-    const container = document.getElementById("episodios-container");
+    let firstVideoSet = false;
 
-    // Gera os episódios
-    function gerarEpisodios() {
-      const temporada = temporadas["Temporada 1"];
+    Object.keys(temporadas).forEach(temp => {
+      const div = document.createElement('div');
+      div.className = 'temporada';
+      div.innerHTML = `<h2>${temp}</h2>`;
 
-      temporada.forEach((episodio) => {
-        const episodioDiv = document.createElement("div");
-        episodioDiv.classList.add("episodio");
+      const lista = document.createElement('div');
+      lista.className = 'episodios';
 
-        const imagem = document.createElement("img");
-        imagem.src = episodio.capa;
-        episodioDiv.appendChild(imagem);
+      temporadas[temp].forEach((ep, index) => {
+        const btn = document.createElement('div');
+        btn.className = 'episodio';
+        btn.innerText = ep.titulo;
+        btn.onclick = () => {
+          selectedVideoUrl = ep.url;
+          preloadImage.style.display = 'block';
+          videoPlayer.load();
+          videoPlayer.play();
+          playerBox.style.display = 'block';
+          videoPlayer.oncanplay = () => {
+            preloadImage.style.display = 'none';
+          };
+        };
 
-        const playIcon = document.createElement("div");
-        playIcon.classList.add("play-icon");
-        playIcon.textContent = "►";
-        episodioDiv.appendChild(playIcon);
+        lista.appendChild(btn);
 
-        const link = document.createElement("a");
-        link.href = episodio.url;
-        link.target = "_blank";
-        link.appendChild(episodioDiv);
-
-        container.appendChild(link);
+        if (!firstVideoSet) {
+          selectedVideoUrl = ep.url;
+          videoPlayer.src = selectedVideoUrl;
+          playerBox.style.display = 'block';
+          videoPlayer.oncanplay = () => {
+            preloadImage.style.display = 'none';
+          };
+          firstVideoSet = true;
+        }
       });
-    }
 
-    gerarEpisodios();
+      div.appendChild(lista);
+      conteudo.appendChild(div);
+    });
+
+    // Abertura do player externo ao clicar no player
+    videoPlayer.onclick = () => {
+      if (selectedVideoUrl) {
+        window.open(selectedVideoUrl, '_blank');
+      }
+    };
   </script>
-
 </body>
 </html>
