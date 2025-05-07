@@ -200,7 +200,7 @@
 
   <div class="player" id="playerBox">
     <div class="preload-image" id="preloadImage"></div>
-    <div class="thumbnail-image" id="thumbnailImage" onclick="redirectToPlayer()"></div>
+    <video id="videoPlayer" controls autoplay style="width: 100%; display: none;"></video>
   </div>
 
   <div id="conteudo"></div>
@@ -209,7 +209,7 @@
     const conteudo = document.getElementById('conteudo');
     const playerBox = document.getElementById('playerBox');
     const preloadImage = document.getElementById('preloadImage');
-    const thumbnailImage = document.getElementById('thumbnailImage');
+    const videoPlayer = document.getElementById('videoPlayer');
     let selectedVideoUrl = "";
 
     let firstVideoSet = false;
@@ -229,8 +229,10 @@
         btn.innerText = ep.titulo;
         btn.onclick = () => {
           selectedVideoUrl = ep.url;
-          thumbnailImage.style.backgroundImage = `url('https://example.com/thumbnail.jpg')`; // Substitua pela URL da imagem do episódio
-          playerBox.style.display = 'block'; // Mostrar o player
+          preloadImage.style.display = 'none'; // Ocultar a imagem de carregamento
+          videoPlayer.style.display = 'block'; // Exibir o player
+          videoPlayer.src = selectedVideoUrl; // Definir a URL do vídeo
+          videoPlayer.play(); // Iniciar o vídeo
         };
         lista.appendChild(btn);
       });
@@ -239,11 +241,6 @@
       conteudo.appendChild(div);
     });
 
-    function redirectToPlayer() {
-      if (selectedVideoUrl) {
-        window.open(selectedVideoUrl, '_blank');
-      }
-    }
   </script>
 </body>
 </html>
