@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Justificado - Temporadas</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.1.6/dist/hls.min.js"></script>
   <script src="links.js"></script>
   <style>
     body {
@@ -180,8 +179,8 @@
   </a>
 
   <h1 style="text-align: center; color: green;">
-  <strong>Justificado - Temporadas</strong> 
-</h1>
+    <strong>Justificado - Temporadas</strong> 
+  </h1>
 
   <div class="imdb-info">
     <img src="https://images.justwatch.com/poster/305418324/s332/temporada-1" alt="Capa de Justified">
@@ -210,6 +209,7 @@
 
     let firstVideoSet = false;
 
+    // A estrutura de dados de temporadas e episódios já é carregada do links.js
     Object.keys(temporadas).forEach(temp => {
       const div = document.createElement('div');
       div.className = 'temporada';
@@ -225,22 +225,8 @@
         btn.onclick = () => {
           selectedVideoUrl = ep.url;
           preloadImage.style.display = 'block';
-
-          if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(selectedVideoUrl);
-            hls.attachMedia(videoPlayer);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-              videoPlayer.play();
-            });
-          }
-          else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-            videoPlayer.src = selectedVideoUrl;
-            videoPlayer.addEventListener('canplay', () => {
-              videoPlayer.play();
-            });
-          }
-
+          videoPlayer.load();
+          videoPlayer.play();
           playerBox.style.display = 'block';
           videoPlayer.oncanplay = () => {
             preloadImage.style.display = 'none';
@@ -250,21 +236,8 @@
         lista.appendChild(btn);
 
         if (!firstVideoSet) {
-          selectedVideoUrl = temporadas[temp][0].url;
-          if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(selectedVideoUrl);
-            hls.attachMedia(videoPlayer);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-              videoPlayer.play();
-            });
-          }
-          else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-            videoPlayer.src = selectedVideoUrl;
-            videoPlayer.addEventListener('canplay', () => {
-              videoPlayer.play();
-            });
-          }
+          selectedVideoUrl = ep.url;
+          videoPlayer.src = selectedVideoUrl;
           playerBox.style.display = 'block';
           videoPlayer.oncanplay = () => {
             preloadImage.style.display = 'none';
