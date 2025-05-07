@@ -45,11 +45,55 @@
       text-decoration: underline;
     }
 
+    .episodios-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .episodio {
+      position: relative;
+      cursor: pointer;
+      width: 180px;
+      height: 100px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .episodio img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .episodio:hover img {
+      transform: scale(1.05);
+    }
+
+    .episodio::after {
+      content: '▶';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      color: rgba(0, 255, 0, 0.6);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .episodio:hover::after {
+      opacity: 1;
+    }
+
     .player-container {
       padding: 20px;
     }
 
-    iframe, video {
+    video {
       width: 100%;
       height: 500px;
       border: none;
@@ -58,20 +102,20 @@
 </head>
 <body>
 
-  <div class="info-container" id="serie-info">
-    <!-- Info será injetada aqui via JS -->
-  </div>
+  <div class="info-container" id="serie-info"></div>
 
-  <div class="player-container" id="player-area">
-    <!-- O player de vídeo será carregado aqui -->
-  </div>
+  <div class="episodios-container" id="episodios-list"></div>
+
+  <div class="player-container" id="player-area"></div>
 
   <script src="links.js"></script>
   <script>
-    // Exibe informações da série
     const infoDiv = document.getElementById("serie-info");
+    const listaEps = document.getElementById("episodios-list");
+    const playerDiv = document.getElementById("player-area");
 
-    const infoHTML = `
+    // Montar informações da série
+    infoDiv.innerHTML = `
       <img src="${serie.capa}" alt="Capa da Série" />
       <div class="info-details">
         <h1>${serie.titulo}</h1>
@@ -82,26 +126,23 @@
       </div>
     `;
 
-    infoDiv.innerHTML = infoHTML;
+    // Mostrar episódios com imagem e hover
+    const temporada1 = temporadas["Temporada 1"];
+    temporada1.forEach((ep, index) => {
+      const epDiv = document.createElement("div");
+      epDiv.className = "episodio";
+      epDiv.innerHTML = `<img src="${ep.capa}" alt="${ep.titulo}" title="${ep.titulo}" />`;
+      epDiv.addEventListener("click", () => carregarPlayer(ep.url));
+      listaEps.appendChild(epDiv);
 
-    // Carrega primeiro episódio como padrão
-    const primeiroEp = temporadas["Temporada 1"][0];
-    const playerDiv = document.getElementById("player-area");
+      // Carregar o primeiro episódio por padrão
+      if (index === 0) carregarPlayer(ep.url);
+    });
 
-    if (primeiroEp.url.endsWith(".m3u8")) {
-      playerDiv.innerHTML = `
-        <video id="video" controls autoplay>
-          <source src="${primeiroEp.url}" type="application/x-mpegURL">
-          Seu navegador não suporta a reprodução de vídeos HLS.
-        </video>
-      `;
-    } else {
-      playerDiv.innerHTML = `
-        <video controls autoplay>
-          <source src="${primeiroEp.url}" type="video/mp4">
-          Seu navegador não suporta vídeos MP4.
-        </video>
-      `;
+    function carregarPlayer(url) {
+      playerDiv.innerHTML = url.endsWith(".m3u8") ?
+        `<video controls autoplay><source src="${url}" type="application/x-mpegURL">Seu navegador não suporta HLS.</video>` :
+        `<video controls autoplay><source src="${url}" type="video/mp4">Seu navegador não suporta MP4.</video>`;
     }
   </script>
 
