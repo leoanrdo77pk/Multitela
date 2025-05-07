@@ -201,11 +201,17 @@
 
   <div id="conteudo"></div>
 
+  <!-- Link para abrir no player externo -->
+  <div style="text-align: center; margin-top: 20px;">
+    <a id="openExternalPlayer" href="#" target="_blank" style="color: #00bcd4; font-size: 1.2rem;">Abrir no Player Externo (VLC ou similar)</a>
+  </div>
+
   <script>
     const conteudo = document.getElementById('conteudo');
     const playerBox = document.getElementById('playerBox');
     const videoPlayer = document.getElementById('videoPlayer');
     const preloadImage = document.getElementById('preloadImage');
+    const openExternalPlayer = document.getElementById('openExternalPlayer');
     let selectedVideoUrl = "";
 
     let firstVideoSet = false;
@@ -228,6 +234,8 @@
           videoPlayer.load();
           videoPlayer.play();
           playerBox.style.display = 'block';
+          openExternalPlayer.href = selectedVideoUrl; // Atualiza o link para o player externo
+          openExternalPlayer.style.display = 'block'; // Exibe o link
           videoPlayer.oncanplay = () => {
             preloadImage.style.display = 'none';
           };
@@ -237,31 +245,23 @@
 
         if (!firstVideoSet) {
           selectedVideoUrl = ep.url;
-          videoPlayer.src = selectedVideoUrl;
-          playerBox.style.display = 'block';
-          videoPlayer.oncanplay = () => {
-            preloadImage.style.display = 'none';
-          };
-          firstVideoSet = true;
-        }
-      });
+          videoPlayer
 
-      div.appendChild(lista);
-      conteudo.appendChild(div);
-    });
 
-    // Usar HLS.js para reproduzir arquivos .m3u8
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        videoPlayer.play();
-      });
 
-      hls.loadSource(selectedVideoUrl);
-      hls.attachMedia(videoPlayer);
-    } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-      videoPlayer.src = selectedVideoUrl;
-    }
-  </script>
-</body>
-</html>
+
+
+
+O ChatGPT disse:
+.src = selectedVideoUrl;
+firstVideoSet = true;
+}
+});
+
+css
+Copiar
+Editar
+  div.appendChild(lista);
+  conteudo.appendChild(div);
+});
+</script> </body> </html> ```
