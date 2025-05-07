@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Justificado - Temporadas</title>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="links.js"></script>
   <style>
     body {
@@ -179,8 +180,8 @@
   </a>
 
   <h1 style="text-align: center; color: green;">
-  <strong>Justificado - Temporadas</strong> 
-</h1>
+    <strong>Justificado - Temporadas</strong> 
+  </h1>
 
   <div class="imdb-info">
     <img src="https://images.justwatch.com/poster/305418324/s332/temporada-1" alt="Capa de Justified">
@@ -195,7 +196,7 @@
 
   <div class="player" id="playerBox">
     <div class="preload-image" id="preloadImage"></div>
-    <video id="videoPlayer" controls autoplay></video>
+    <video id="videoPlayer" controls></video>
   </div>
 
   <div id="conteudo"></div>
@@ -249,12 +250,18 @@
       conteudo.appendChild(div);
     });
 
-    // Abertura do player externo ao clicar no player
-    videoPlayer.onclick = () => {
-      if (selectedVideoUrl) {
-        window.open(selectedVideoUrl, '_blank');
-      }
-    };
+    // Usar HLS.js para reproduzir arquivos .m3u8
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        videoPlayer.play();
+      });
+
+      hls.loadSource(selectedVideoUrl);
+      hls.attachMedia(videoPlayer);
+    } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+      videoPlayer.src = selectedVideoUrl;
+    }
   </script>
 </body>
 </html>
