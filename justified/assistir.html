@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -55,7 +54,6 @@
       max-width: 800px;
       margin: 0 auto 30px auto;
       position: relative;
-      cursor: pointer;
     }
 
     video {
@@ -183,11 +181,13 @@
   <strong>Justificado - Temporadas</strong> 
 </h1>
 
-  <div class="imdb-info">
+
+    <div class="imdb-info">
     <img src="https://images.justwatch.com/poster/305418324/s332/temporada-1" alt="Capa de Justified">
     <div class="details">
       <h2>Justificado (2010–2015)</h2>
       <p><strong>Nota IMDb:</strong> <span style="color: gold;">★</span> 8.6/10</p>
+
       <p><strong>Gêneros:</strong> Crime, Drama, Faroeste</p>
       <p><strong>Sinopse:</strong> O Marechal dos EUA Raylan Givens aplica sua própria marca de justiça em sua cidade natal, enfrentando criminosos e desafios pessoais.</p>
       <p><a href="https://www.imdb.com/title/tt1489428/" target="_blank" style="color: #00bcd4;">Ver no IMDb</a></p>
@@ -199,6 +199,8 @@
     <video id="videoPlayer" controls autoplay></video>
   </div>
 
+
+
   <div id="conteudo"></div>
 
   <script>
@@ -206,7 +208,6 @@
     const playerBox = document.getElementById('playerBox');
     const videoPlayer = document.getElementById('videoPlayer');
     const preloadImage = document.getElementById('preloadImage');
-    let selectedVideoUrl = "";
 
     let firstVideoSet = false;
 
@@ -223,11 +224,12 @@
         btn.className = 'episodio';
         btn.innerText = ep.titulo;
         btn.onclick = () => {
-          selectedVideoUrl = ep.url;
+          videoPlayer.src = ep.url;
           preloadImage.style.display = 'block';
           videoPlayer.load();
           videoPlayer.play();
           playerBox.style.display = 'block';
+
           videoPlayer.oncanplay = () => {
             preloadImage.style.display = 'none';
           };
@@ -236,8 +238,7 @@
         lista.appendChild(btn);
 
         if (!firstVideoSet) {
-          selectedVideoUrl = ep.url;
-          videoPlayer.src = selectedVideoUrl;
+          videoPlayer.src = ep.url;
           playerBox.style.display = 'block';
           videoPlayer.oncanplay = () => {
             preloadImage.style.display = 'none';
@@ -249,13 +250,6 @@
       div.appendChild(lista);
       conteudo.appendChild(div);
     });
-
-    // Abertura do player externo ao clicar no player
-    videoPlayer.onclick = () => {
-      if (selectedVideoUrl) {
-        window.open(selectedVideoUrl, '_blank');
-      }
-    };
   </script>
 </body>
 </html>
