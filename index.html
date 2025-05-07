@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Filmes e Séries Online</title>
@@ -509,7 +513,7 @@
 </script>
 
 
-  <script src="series.js"></script>
+ <script src="series.js"></script>
 <script>
   const catalogo = document.getElementById("catalogo");
 
@@ -518,11 +522,13 @@
     card.className = "card";
     card.innerHTML = `
       <img src="${serie.imagem}" alt="${serie.titulo}">
+      <div class="overlay"></div>
       <a href="${serie.link}">${serie.titulo}</a>
     `;
     catalogo.appendChild(card);
   });
 </script>
+
 <script>
   function filterSeriesByCategory(categoria) {
     const container = document.getElementById('novasSeries');
@@ -537,6 +543,7 @@
       card.className = 'card';
       card.innerHTML = `
         <img src="${serie.imagem}" alt="${serie.titulo}">
+        <div class="overlay"></div>
         <a href="${serie.link}">${serie.titulo}</a>
       `;
       container.appendChild(card);
