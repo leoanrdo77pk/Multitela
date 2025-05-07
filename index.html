@@ -256,6 +256,52 @@
     
     
     
+  
+ /* Estilo comum para overlay com ícone de play */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 255, 0, 0.4); /* verde semitransparente */
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+a:hover .overlay {
+  opacity: 1;
+}
+
+.overlay i {
+  font-size: 50px;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+a:hover .overlay i {
+  transform: scale(1.2);
+}
+
+/* Garantir posicionamento correto em imagens */
+.swiper-slide a,
+.card a:first-child {
+  position: relative;
+  display: block;
+}
+
+.swiper-slide img,
+.card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+   
+    
+    
     
 .card {
   position: relative;
@@ -353,7 +399,9 @@
   <div class="content">
     <h1>Em destaque</h1>
 
-<div class="slider-container" id="slider">
+<!-- SLIDE -->
+<div class="swiper-wrapper" id="swiper-wrapper"></div>
+
   <div class="card slide active">
     <img src="https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg" alt="Justified">
     <div class="overlay"></div>
@@ -417,10 +465,11 @@
   <input type="text" id="searchInput" placeholder="Buscar filmes ou séries...">
 </div>
 
-<h2>Recentes</h2>
-<div class="catalogo" id="catalogo">
-</div>
 
+
+<!-- CATÁLOGO -->
+<h2>Recentes</h2>
+<div class="catalogo" id="catalogo"></div>
 
 </div>
 <script>
@@ -504,18 +553,32 @@
 </script>
 
 
+
 <script src="series.js"></script>
 <script>
+  const swiperWrapper = document.getElementById("swiper-wrapper");
   const catalogo = document.getElementById("catalogo");
 
   seriesNovas.forEach(serie => {
+    // SLIDE
+    const slide = document.createElement("div");
+    slide.className = "swiper-slide";
+    slide.innerHTML = `
+      <a href="${serie.link}">
+        <img src="${serie.imagem}" alt="${serie.titulo}">
+        <div class="overlay"><i class="fas fa-play"></i></div>
+      </a>
+    `;
+    swiperWrapper.appendChild(slide);
+
+    // CATÁLOGO
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <img src="${serie.imagem}" alt="${serie.titulo}">
-      <div class="overlay">
-        <i class="fas fa-play"></i> <!-- Ícone de play -->
-      </div>
+      <a href="${serie.link}">
+        <img src="${serie.imagem}" alt="${serie.titulo}">
+        <div class="overlay"><i class="fas fa-play"></i></div>
+      </a>
       <a href="${serie.link}">${serie.titulo}</a>
     `;
     catalogo.appendChild(card);
