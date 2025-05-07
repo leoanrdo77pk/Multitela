@@ -16,7 +16,7 @@ const temporadas = {
     {
       capa: "https://images.justwatch.com/poster/305418324/s332/temporada-1",
       url: "http://lexus.hubns.top:80/series/Leonardo77/983469871/4432353.mp4"
-    }
+    },
    {
       capa: "https://images.justwatch.com/poster/305418324/s332/temporada-1",
       url: "http://lexus.hubns.top:80/series/Leonardo77/983469871/4432354.mp4"
