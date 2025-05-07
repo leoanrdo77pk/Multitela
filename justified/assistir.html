@@ -73,23 +73,18 @@
       font-size: 1.5rem;
     }
 
+    /* Player Image with Hover */
     .player {
       position: relative;
-      max-width: 800px;
-      margin: 20px auto;
-      overflow: hidden;
-      border-radius: 10px;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
     }
 
     .player img {
       width: 100%;
-      height: auto;
-      transition: opacity 0.3s ease;
+      border-radius: 10px;
       cursor: pointer;
-    }
-
-    .player:hover img {
-      opacity: 0.7;
     }
 
     .player .play-icon {
@@ -97,12 +92,16 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 50px;
+      font-size: 40px;
       color: rgba(0, 255, 0, 0.7);
       display: none;
     }
 
     .player:hover .play-icon {
+      display: block;
+    }
+
+    .player a {
       display: block;
     }
 
@@ -163,11 +162,11 @@
     </div>
   </div>
 
-  <!-- Imagem clicável com efeito de hover e ícone de play -->
-  <div class="player" id="playerBox">
-    <a href="https://meuplayerexterno.com" target="_blank">
+  <!-- Player Image with Hover -->
+  <div class="player">
+    <a href="#" onclick="window.open(links.videoUrl, '_blank'); return false;">
       <img src="https://m.media-amazon.com/images/S/pv-target-images/3d28d68d84017c03cb6efa2c7f2f6a1fb09dabd036f34faf5dbe8cb14d342286.jpg" alt="Imagem para o player externo">
-      <div class="play-icon">►</div>
+      <div class="play-icon">▶</div>
     </a>
   </div>
 
