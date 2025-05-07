@@ -7,7 +7,7 @@ const temporadas = {
     },
     {
       titulo: "Justified S01E02",
-      url: "http://lexus.hubns.top:80/series/Leonardo77/983469871/3727761.mp4",
+      url: "http://lexus.hubns.top:80/Leonardo77/983469871/1256632.m3u8",
       capa: "http://timg.bdta.pro/images/06592de5fd33db38910361c0905fe743.jpg"
     },
     {
