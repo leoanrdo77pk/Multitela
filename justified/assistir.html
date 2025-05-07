@@ -12,6 +12,24 @@
       margin: 0;
       padding: 0;
     }
+    .capa-serie {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background-image: url('');
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding: 20px;
+      color: white;
+    }
+    .capa-serie h1 {
+      font-size: 3em;
+    }
+    .info-serie {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
     .container {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -54,7 +72,17 @@
 </head>
 <body>
 
-  <h1 style="text-align: center; padding: 20px 0;">Assistir Justified - Temporada 1</h1>
+  <!-- Capa da série com informações -->
+  <div class="capa-serie" style="background-image: url('');" id="capa-serie">
+    <h1 id="titulo-serie">Justified</h1>
+    <div class="info-serie" id="info-serie">
+      <p id="genero-serie">Gênero: Crime, Drama, Faroeste</p>
+      <p id="sinopse-serie">Sinopse: O U.S. Marshal Raylan Givens é transferido de Miami para sua terra natal, onde enfrenta criminosos antigos e novos.</p>
+      <a href="https://www.imdb.com/title/tt1486217/" target="_blank" style="color: white;">Veja no IMDb</a>
+    </div>
+  </div>
+
+  <h2 style="text-align: center; padding: 20px 0; color: white;">Episódios da Temporada 1</h2>
 
   <div class="container" id="episodios-container">
     <!-- Aqui vão os episódios que serão carregados dinamicamente -->
@@ -62,6 +90,12 @@
 
   <script src="links.js"></script>
   <script>
+    // Atualiza as informações da capa da série
+    document.getElementById('capa-serie').style.backgroundImage = `url('${serie.capa}')`;
+    document.getElementById('titulo-serie').textContent = serie.titulo;
+    document.getElementById('genero-serie').textContent = `Gênero: ${serie.genero}`;
+    document.getElementById('sinopse-serie').textContent = `Sinopse: ${serie.sinopse}`;
+
     const container = document.getElementById("episodios-container");
 
     // Função para gerar os cards de episódios
