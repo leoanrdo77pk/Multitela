@@ -1,149 +1,157 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Assistir Série</title>
+  <title>Assistir Justified</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: white;
       margin: 0;
       padding: 0;
-      background: #111;
-      color: #fff;
     }
 
-    .info-container {
+    .capa-serie {
       display: flex;
       flex-direction: row;
-      padding: 20px;
+      align-items: center;
       gap: 20px;
-      background-color: #1e1e1e;
+      padding: 20px;
+      background-color: #2c2c2c;
+      flex-wrap: wrap;
     }
 
-    .info-container img {
+    .capa-serie img {
       width: 250px;
+      height: auto;
       border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    .info-details {
+    .info-serie {
       max-width: 600px;
     }
 
-    .info-details h1 {
-      margin-top: 0;
-      font-size: 32px;
+    .info-serie h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
     }
 
-    .info-details p {
-      margin: 10px 0;
-      font-size: 16px;
+    .info-serie p {
+      font-size: 1.2em;
+      margin: 5px 0;
     }
 
-    .info-details a {
-      color: #f0c040;
+    .info-serie a {
+      color: #00ff00;
       text-decoration: underline;
     }
 
-    .episodios-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
       padding: 20px;
     }
 
     .episodio {
       position: relative;
       cursor: pointer;
-      width: 180px;
-      height: 100px;
       overflow: hidden;
       border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
     .episodio img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 10px;
       transition: transform 0.3s ease;
     }
 
     .episodio:hover img {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
 
-    .episodio::after {
-      content: '▶';
+    .play-icon {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 48px;
-      color: rgba(0, 255, 0, 0.6);
+      font-size: 50px;
+      color: rgba(0, 255, 0, 0.7);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
-    .episodio:hover::after {
+    .episodio:hover .play-icon {
       opacity: 1;
     }
 
-    .player-container {
-      padding: 20px;
-    }
-
-    video {
-      width: 100%;
-      height: 500px;
-      border: none;
+    a {
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
 
-  <div class="info-container" id="serie-info"></div>
+  <!-- Capa da série com imagem ao lado das infos -->
+  <div class="capa-serie">
+    <img id="poster-serie" src="" alt="Capa da Série">
+    <div class="info-serie">
+      <h1 id="titulo-serie">Justified</h1>
+      <p id="genero-serie">Gênero: Crime, Drama, Faroeste</p>
+      <p id="sinopse-serie">Sinopse: O U.S. Marshal Raylan Givens é transferido de Miami para sua terra natal, onde enfrenta criminosos antigos e novos.</p>
+      <a id="link-imdb" href="https://www.imdb.com/title/tt1486217/" target="_blank">Veja no IMDb</a>
+    </div>
+  </div>
 
-  <div class="episodios-container" id="episodios-list"></div>
+  <h2 style="text-align: center; padding: 20px 0;">Episódios da Temporada 1</h2>
 
-  <div class="player-container" id="player-area"></div>
+  <div class="container" id="episodios-container">
+    <!-- Episódios serão inseridos aqui -->
+  </div>
 
   <script src="links.js"></script>
   <script>
-    const infoDiv = document.getElementById("serie-info");
-    const listaEps = document.getElementById("episodios-list");
-    const playerDiv = document.getElementById("player-area");
+    // Atualiza as informações da série
+    document.getElementById('poster-serie').src = serie.poster;
+    document.getElementById('titulo-serie').textContent = serie.titulo;
+    document.getElementById('genero-serie').textContent = `Gênero: ${serie.genero}`;
+    document.getElementById('sinopse-serie').textContent = `Sinopse: ${serie.sinopse}`;
+    document.getElementById('link-imdb').href = serie.imdb;
 
-    // Montar informações da série
-    infoDiv.innerHTML = `
-      <img src="${serie.capa}" alt="Capa da Série" />
-      <div class="info-details">
-        <h1>${serie.titulo}</h1>
-        <p><strong>Ano:</strong> ${serie.ano}</p>
-        <p><strong>Gênero:</strong> ${serie.genero}</p>
-        <p><strong>Sinopse:</strong> ${serie.sinopse}</p>
-        <p><a href="${serie.imdbLink}" target="_blank">Ver no IMDb</a></p>
-      </div>
-    `;
+    const container = document.getElementById("episodios-container");
 
-    // Mostrar episódios com imagem e hover
-    const temporada1 = temporadas["Temporada 1"];
-    temporada1.forEach((ep, index) => {
-      const epDiv = document.createElement("div");
-      epDiv.className = "episodio";
-      epDiv.innerHTML = `<img src="${ep.capa}" alt="${ep.titulo}" title="${ep.titulo}" />`;
-      epDiv.addEventListener("click", () => carregarPlayer(ep.url));
-      listaEps.appendChild(epDiv);
+    // Gera os episódios
+    function gerarEpisodios() {
+      const temporada = temporadas["Temporada 1"];
 
-      // Carregar o primeiro episódio por padrão
-      if (index === 0) carregarPlayer(ep.url);
-    });
+      temporada.forEach((episodio) => {
+        const episodioDiv = document.createElement("div");
+        episodioDiv.classList.add("episodio");
 
-    function carregarPlayer(url) {
-      playerDiv.innerHTML = url.endsWith(".m3u8") ?
-        `<video controls autoplay><source src="${url}" type="application/x-mpegURL">Seu navegador não suporta HLS.</video>` :
-        `<video controls autoplay><source src="${url}" type="video/mp4">Seu navegador não suporta MP4.</video>`;
+        const imagem = document.createElement("img");
+        imagem.src = episodio.capa;
+        episodioDiv.appendChild(imagem);
+
+        const playIcon = document.createElement("div");
+        playIcon.classList.add("play-icon");
+        playIcon.textContent = "►";
+        episodioDiv.appendChild(playIcon);
+
+        const link = document.createElement("a");
+        link.href = episodio.url;
+        link.target = "_blank";
+        link.appendChild(episodioDiv);
+
+        container.appendChild(link);
+      });
     }
+
+    gerarEpisodios();
   </script>
 
 </body>
