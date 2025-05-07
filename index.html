@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <head>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Filmes e Séries Online</title>
@@ -253,22 +257,15 @@
     
     
     
-    .card {
-  position: relative; /* Necessário para posicionar o overlay */
+.card {
+  position: relative;
   background-color: #1f1f1f;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   transition: transform 0.2s;
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.5s ease forwards;
-}
-
-.card:hover {
-  transform: scale(1.05);
 }
 
 .card img {
@@ -277,24 +274,32 @@
   object-fit: cover;
 }
 
-/* Novo estilo para o overlay */
 .card .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparente */
+  background-color: rgba(0, 255, 0, 0.4); /* Cor verde semitransparente */
+  opacity: 0;
+  transition: opacity 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: 10px;
 }
 
 .card:hover .overlay {
-  opacity: 1; /* Aparece quando o card é hoverizado */
+  opacity: 1;
+}
+
+.card .overlay i {
+  font-size: 50px;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .overlay i {
+  transform: scale(1.2); /* Aumenta o ícone ao passar o mouse */
 }
 
 .card a {
@@ -302,25 +307,15 @@
   padding: 10px;
   color: white;
   text-decoration: none;
-  text-size: 11px;
+  font-size: 14px;
   font-weight: bold;
-  background-color: limegreen;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  z-index: 1; /* Garante que o link fique sobre o overlay */
 }
 
 .card:hover a {
   background-color: #00cc44;
-  color: #000;
+  color: black;
 }
 
-.card .overlay .text {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  z-index: 2; /* Garante que o texto fique visível acima do fundo */
-}
 
 @media (max-width: 600px) {
   .slider-container {
@@ -509,7 +504,7 @@
 </script>
 
 
- <script src="series.js"></script>
+<script src="series.js"></script>
 <script>
   const catalogo = document.getElementById("catalogo");
 
@@ -518,33 +513,13 @@
     card.className = "card";
     card.innerHTML = `
       <img src="${serie.imagem}" alt="${serie.titulo}">
-      <div class="overlay"></div>
+      <div class="overlay">
+        <i class="fas fa-play"></i> <!-- Ícone de play -->
+      </div>
       <a href="${serie.link}">${serie.titulo}</a>
     `;
     catalogo.appendChild(card);
   });
-</script>
-
-<script>
-  function filterSeriesByCategory(categoria) {
-    const container = document.getElementById('novasSeries');
-    container.innerHTML = ''; // Limpa a área onde as séries serão exibidas
-
-    // Filtra as séries pela categoria selecionada
-    const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === categoria);
-
-    // Exibe as séries filtradas
-    seriesFiltradas.forEach(serie => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${serie.imagem}" alt="${serie.titulo}">
-        <div class="overlay"></div>
-        <a href="${serie.link}">${serie.titulo}</a>
-      `;
-      container.appendChild(card);
-    });
-  }
 </script>
 
 </body>
