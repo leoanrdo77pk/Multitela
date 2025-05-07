@@ -220,6 +220,10 @@
     </div>
   </div>
 
+  <h2>Recentes</h2>
+<div class="catalogo" id="catalogo">
+</div>
+
   <script>
     function toggleMenu() {
       const menu = document.getElementById("menuLateral");
@@ -231,17 +235,9 @@
       submenu.style.display = submenu.style.display === "block" ? "none" : "block";
     }
   </script>
-<h2>Recentes</h2>
-<div class="catalogo" id="catalogo">
-</div>
+
 
 <script>
-  // Simulação de dados dinâmicos para o catálogo
-  const seriesNovas = [
-    { imagem: 'https://assets.fxnetworks.com/cms-next/production/3f013aba-5074-4ca4-a10c-12d88ed4eaa6.jpg', titulo: 'Justified', link: '/justified/assistir.html' },
-    { imagem: 'https://infinitasvidas.wordpress.com/wp-content/uploads/2015/10/poster-breaking-bad.png', titulo: 'Breaking Bad', link: '#'},
-    { imagem: 'https://upload.wikimedia.org/wikipedia/pt/a/a2/TheWalkingDead-P%C3%B4ster.jpg', titulo: 'The Walking Dead', link: '#' }
-  ];
 
   // Função para adicionar os cards no catálogo
   const catalogo = document.getElementById("catalogo");
