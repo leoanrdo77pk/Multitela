@@ -165,7 +165,6 @@
     }
   </style>
 
-  <!-- Ícones do Font Awesome -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -218,77 +217,31 @@
         <a href="#">The Walking Dead</a>
       </div>
     </div>
+
+    <h2>Recentes</h2>
+    <div class="catalogo" id="catalogo"></div>
+
   </div>
 
-  <h2>Recentes</h2>
-<div class="catalogo" id="catalogo">
-</div>
-
+  <script src="series.js"></script>
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("menuLateral");
-      menu.style.width = menu.style.width === "250px" ? "0" : "250px";
-    }
+    // Função para adicionar os cards no catálogo com base nos dados do arquivo series.js
+    window.onload = function() {
+      const catalogo = document.getElementById("catalogo");
 
-    function toggleSubmenu(id) {
-      const submenu = document.getElementById(id);
-      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
-    }
+      seriesNovas.forEach(serie => {
+        const card = document.createElement("div");
+        card.className = "card slide"; // Classe do card
+
+        card.innerHTML = `
+          <img src="${serie.imagem}" alt="${serie.titulo}">
+          <a href="${serie.link}">${serie.titulo}</a>
+        `;
+
+        catalogo.appendChild(card); // Adiciona o card ao catálogo
+      });
+    };
   </script>
-
-
-<script>
-
-  // Função para adicionar os cards no catálogo
-  const catalogo = document.getElementById("catalogo");
-
-  seriesNovas.forEach(serie => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <div class="card slide">
-        <img src="${serie.imagem}" alt="${serie.titulo}">
-        <div class="overlay" onclick="window.location.href='${serie.link}'">
-          <i class="fas fa-play-circle"></i>
-        </div>
-        <a href="${serie.link}">${serie.titulo}</a>
-      </div>
-    `;
-
-   <script src="series.js"></script>
-<script>
-  const catalogo = document.getElementById("catalogo");
-
-  seriesNovas.forEach(serie => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${serie.imagem}" alt="${serie.titulo}">
-      <a href="${serie.link}">${serie.titulo}</a>
-    `;
-    catalogo.appendChild(card);
-  });
-
-  function filterSeriesByCategory(categoria) {
-    const container = document.getElementById('novasSeries');
-    container.innerHTML = ''; // Limpa a área onde as séries serão exibidas
-
-    // Filtra as séries pela categoria selecionada
-    const seriesFiltradas = seriesNovas.filter(serie => serie.categoria === categoria);
-
-    // Exibe as séries filtradas
-    seriesFiltradas.forEach(serie => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <img src="${serie.imagem}" alt="${serie.titulo}">
-        <a href="${serie.link}">${serie.titulo}</a>
-      `;
-      container.appendChild(card);
-    });
-
-</script>
 
 </body>
 </html>
