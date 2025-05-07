@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Justificado - Temporadas</title>
-  <script src="links.js"></script>
+  <script src="links.js"></script> <!-- Importa os links do vídeo e episódios -->
   <style>
     body {
       background: #121212;
@@ -101,8 +101,26 @@
       display: block;
     }
 
-    .player a {
-      display: block;
+    .episodes {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .episodes button {
+      background-color: #00bcd4;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .episodes button:hover {
+      background-color: #007c91;
     }
 
     /* RESPONSIVO */
@@ -168,6 +186,22 @@
       <img src="https://m.media-amazon.com/images/S/pv-target-images/3d28d68d84017c03cb6efa2c7f2f6a1fb09dabd036f34faf5dbe8cb14d342286.jpg" alt="Imagem para o player externo">
       <div class="play-icon">▶</div>
     </a>
+  </div>
+
+  <!-- Episódios -->
+  <div class="episodes">
+    <!-- Criação dos botões dinamicamente -->
+    <script>
+      const episodeContainer = document.querySelector('.episodes');
+      links.episodios.forEach(episodio => {
+        const button = document.createElement('button');
+        button.textContent = episodio.titulo;
+        button.onclick = () => {
+          window.open(episodio.url, '_blank');
+        };
+        episodeContainer.appendChild(button);
+      });
+    </script>
   </div>
 
 </body>
